@@ -1,9 +1,9 @@
-FROM archlinux/latest
+FROM archlinux
 
+USER root
 
-
-RUN pacman --noconfirm -S python3
-RUN pacman --noconfirm -S python-pip
+RUN pacman --noconfirm -Sy python3
+RUN pacman --noconfirm -Sy python-pip
 #RUN pacman --noconfirm -S pypy
 #RUN pacman --noconfirm -S pypy
 #RUN pacman --noconfirm -S pypy
