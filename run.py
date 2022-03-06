@@ -17,7 +17,7 @@ languages = {
 
 
 
-def name_to_abbr(mode: bool = True, languages: dict | list = languages, capitalize: bool = False) -> dict | list:
+def name_to_abbr(mode: bool = True, languages: dict[str, str] | list[str] = languages, capitalize: bool = False) -> dict[str, str] | list[str]:
     languages_type = type(languages)
     #checking if dict and if so convert to list
     if languages_type == dict:
@@ -35,7 +35,7 @@ def name_to_abbr(mode: bool = True, languages: dict | list = languages, capitali
                 case "c++":
                     new_languages.append("cpp")
                 case _:
-                    new_languages.append(language)
+                    new_languages.append(language.lower())
 
 
     #normal to abbreviation
@@ -47,7 +47,7 @@ def name_to_abbr(mode: bool = True, languages: dict | list = languages, capitali
                 case "cpp":
                     new_languages.append("c++")
                 case _:
-                    new_languages.append(language)
+                    new_languages.append(language.lower())
 
 
     if capitalize:
@@ -119,8 +119,10 @@ def menu(lower: int, upper: int) -> None:
         )
 
 
+        #if none of the above
+        clear()
     print(f"This comparison will running between {Fore.RED + str(lower) + Fore.RESET} and {Fore.RED + str(upper) + Fore.RESET} and it is using {Style.BRIGHT + str(len(languages.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, languages.keys())) + Fore.RESET}")
-    teste = name_to_abbr(mode=True, capitalize=False)
+    teste = name_to_abbr(mode=True, capitalize=True, languages=["Python", "Csharp"])
     print(teste)
 
 
