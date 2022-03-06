@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-import os, sys, argparse, subprocess
+import os, sys, argparse
 from time import time
+from subprocess import check_call, STDOUT
+from tempfile import NamedTemporaryFile
 
 from prettytable import PrettyTable
 from colorama import Fore, Style
@@ -12,7 +14,6 @@ upper = 100_000
 
 languages = {
     "Python": "python3 main.py",
-    "C#": "dotnet run --"
 }
 
 
@@ -78,13 +79,18 @@ def name_to_abbr(mode: bool = True, languages: dict[str, str] | list[str] = lang
 
 
 def call_languages():
-    #for language in languages.keys():
-        #match language.lower():
-            #case "c#":
-                #language = "csharp"
-            #case "c++":
-                #language= "cpp"
-    name_to_abbr()
+    languages = name_to_abbr()
+    for language, command in languages.items():
+        #fast asf refer: https://stackoverflow.com/questions/13835055/python-subprocess-check-output-much-slower-then-call
+        with NamedTemporaryFile() as f:
+            check_call(command.split(), stdout=f, stderr=STDOUT, cwd="./src")
+            f.seek(0)
+            output = f.read()
+
+    print(output)
+
+
+
 
 
 
@@ -122,8 +128,7 @@ def menu(lower: int, upper: int) -> None:
         #if none of the above
         clear()
     print(f"This comparison will running between {Fore.RED + str(lower) + Fore.RESET} and {Fore.RED + str(upper) + Fore.RESET} and it is using {Style.BRIGHT + str(len(languages.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, languages.keys())) + Fore.RESET}")
-    teste = name_to_abbr(mode=True, capitalize=True, languages=["Python", "Csharp"])
-    print(teste)
+    call_languages()
 
 
 
