@@ -11,11 +11,12 @@ import matplotlib.pyplot as plt
 
 lower = 1
 upper = 100_000
+#make text bold
+BOLD = "\033[1m"
 
 languages = {
     "Python": "python3 main.py",
 }
-
 
 
 def name_to_abbr(mode: bool = True, languages: dict[str, str] | list[str] = languages, capitalize: bool = False) -> dict[str, str] | list[str]:
@@ -116,7 +117,7 @@ def menu(lower: int, upper: int) -> None:
     while (start := start_input.lower()) not in ["start", "play"] :
         if start == "options":
             clear()
-            options_input = input(f"/{Fore.BLUE}options{Fore.RESET}> ")
+            options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
 
         elif start == "info":
             print("INFORMATIONS")
@@ -128,6 +129,9 @@ def menu(lower: int, upper: int) -> None:
         #if none of the above
         clear()
     print(f"This comparison will running between {Fore.RED + str(lower) + Fore.RESET} and {Fore.RED + str(upper) + Fore.RESET} and it is using {Style.BRIGHT + str(len(languages.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, languages.keys())) + Fore.RESET}")
+
+
+    #start actual benchmark
     call_languages()
 
 
