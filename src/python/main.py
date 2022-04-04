@@ -1,7 +1,7 @@
 import time
 import sys
 start = time.time()
-with open("./rounds.txt") as f:
+with open("../rounds.txt") as f:
     rounds = int(f.read())
 
 primes = 0
@@ -19,4 +19,4 @@ for num in range(rounds):
     if ctr == 0 and num != 1:
         primes += 1
 end = time.time()
-print(sys.version.split()[0], end - start)
+print(sys.version.split()[0], end - start, end="")

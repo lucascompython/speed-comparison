@@ -4,6 +4,8 @@ USER root
 
 RUN pacman --noconfirm -Sy python3
 RUN pacman --noconfirm -Sy python-pip
+#get GNU Time
+RUN pacman --noconfirm -Sy time
 #RUN pacman --noconfirm -S pypy
 #RUN pacman --noconfirm -S pypy
 #RUN pacman --noconfirm -S pypy
