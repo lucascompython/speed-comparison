@@ -1,8 +1,14 @@
 # Preview
-![plot](https://raw.github.com/niklas-heer/speed-comparison/master/.github/plot_v1.4.png "Speed comparison of programming languages")
+
+<div align="center">
+
+![plot](https://cdn.discordapp.com/attachments/628637327878520872/960662699161841664/unknown.png "Speed comparison of programming languages")
+![table](https://cdn.discordapp.com/attachments/628637327878520872/960662888492695552/unknown.png "Table") 
+
+</div>
 
 ---
-![lines](https://img.shields.io/tokei/lines/github/lucascompython/Languages-speed-comparison)
+![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 # Speed comparison of programming languages 
 
 This projects compares the speed of different programming/scripting languages.
@@ -46,66 +52,77 @@ for(num = lower; num <= upper; num++){
 I'm no expert in all these languages, so take my results with a grain of salt.<br>
 The speed of the language does not determine its quality.
 <!-- Also the findings just show how good the languages can handle floating point operations, which is only one aspect of a programming language. -->
-I'm not doing any optomization in these tests.
+I'm not doing any optomization in these tests YET.
 
-You are also welcome to contribute and help me make fix my possible misuse of some languages(pwease don't try to kill me for my possible mistakes :disappointed_relieved:). :smile:
+You are also more than welcome to contribute and help me make fix my possible misuse of some languages.
 ## Languages used in this comparison
 
 
 - [Python](https://www.python.org/) - interpreted
 - [C++](https://isocpp.org/) - compiled
+<!---
+
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled
 - [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
 - [Go](https://golang.org/) - compiled
 - [Rust](https://www.rust-lang.org/) - compiled
+--->
+
 
 
 ## Features
 
-- ![Graphs](http://imagem.com)
-- ![Table](https://imagem.com)
+- Graphs
+- Tables
 - Advanced but simple command line integration with multiple options for comparing (E.g: choosing with languages to compare and changing the values of the iterations).
-- ![CLI](https://imagem.com)
-- All languages will support command line argument parser(positional arguments).
-- The program will get and display your pc's status.
-- Install all the requirements by itself.
+- All languages will read from a txt file.
+- The program will get and display the memory usage.
+<!---- Install all the requirements by itself.
+-->
 
 <!-- ## Results
 asdd -->
 ## Run it yourself
-
+<!--
 Everything is run by a Docker container and a bash script which envokes the programs.
+-->
 
 To measure the execution time, in each language is implemented a timer.
 The plots are made with [MatPlotLib](https://matplotlib.org).
 
 ### Requirements
 
-- `Docker`
+- `Python 3.10`
 - `Makefile` support
 
 ### Instalation and Execution
 
-    git clone https://github.com/lucascompython/Languages-speed-comparison
-    cd Languages-speed-comparison
-    make
+```bash
+git clone https://github.com/lucascompython/speed-comparison.git
+cd speed-comparison
+make
+```
 
 ## FAQ
 
 > Does it work on Windows?
 
-Yes it does normie, its a docker container it runs everywhere. Who the fuck uses Windows anyways...
+Yes, I think... It will work for sure when I add a docker Version.
 
 > Are the compile/interpret times included in the comparison?
 
-No they are not included yet, im going to compare those too.
+Yes!
 
 ## TODO
 
 
-- [x] Add Rust
-- [x] Add Golang
+- [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
+- [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [ ] Add C#
+- [ ] Add Java
+- [ ] Add Rust
+- [ ] Add Golang
 - [ ] Add TypeScript with [Deno](https://deno.land)
 - [ ] Add Kotlin
 - [ ] Add Swift
@@ -115,16 +132,16 @@ No they are not included yet, im going to compare those too.
 - [ ] Add Scala
 - [ ] Add Bash
 - [ ] Add Powershell
+- [ ] Add Nix
 - [ ] Add Php
 - [ ] Add R
 - [ ] Add R plots instead of MatPlotLib
 - [ ] Add Julia
-- [ ] Add CSV files and graphs
-- [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
-- [ ] Elixir
-- [ ] Ruby
-- [ ] Raku (Perl6)
-- [ ] Nix
+- [ ] Add Elixir
+- [ ] Add Ruby
+- [ ] Add Raku (Perl6)
+- [ ] Add Nim
+- [ ] And many others...
 
 
 <details>
@@ -138,18 +155,6 @@ No they are not included yet, im going to compare those too.
 
 </details>
 
-<!-- - [ ] Add [Php 5.6](https://aur.archlinux.org/packages/php56/)
-- [ ] Add phpv8js
-- [ ] Add python2
-- [ ] Add Smalltalk
-- [ ] Add C#
-- [ ] Add Raku (Perl6)
-- [ ] Add Kotlin
-- [ ] Add Haskell
-- [ ] Add Elixir
-- [ ] Add Lisp
-- [ ] Add Ada
-- [ ] Add COBOL -->
 <!-- 
 ## Thanks
 
