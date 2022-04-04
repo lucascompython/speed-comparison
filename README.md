@@ -118,6 +118,8 @@ Yes!
 
 
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
+- [ ] Add full Docker Support
+- [ ] Add an options to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add C#
 - [ ] Add Java
