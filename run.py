@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import compileall
 import os, sys, argparse
 from re import I
 from time import time
