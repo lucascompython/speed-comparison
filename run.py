@@ -112,7 +112,6 @@ def call_languages() -> None:
             output.append(total_time)
             #get the compilation time 
             output[2] = float(output[2]) - float(output[1])
-            print(output)
         languages_results[language] = output
 
 
