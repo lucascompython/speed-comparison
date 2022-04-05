@@ -15,7 +15,7 @@ with open("./src/rounds.txt", "r") as f:
 
 languages = {
     "Python": "python3 main.py",
-    "C++": "g++ main.cpp -o main && ./main"
+    "C++": "g++ main.cpp -o main && ./main",
 }
 
 
@@ -111,6 +111,9 @@ def call_languages() -> None:
             output = f.read().decode("utf8").split()
             total_time = float(output[1]) + float(output[2])
             output.append(total_time)
+            #get the compilation time 
+            output[2] = float(output[2]) - float(output[1])
+            print(output)
         languages_results[language] = output
 
 
@@ -147,7 +150,7 @@ def table_and_graph(total_time: float, nogui: bool) -> None:
         Fore.GREEN + "Total time (s)" + Fore.RESET,
         Fore.BLUE + "Execution time (s)" + Fore.RESET,
         Fore.CYAN + "Compilation / Interpretation time (s)" + Fore.RESET,
-        Fore.LIGHTGREEN_EX + "Memory usage (kB)" + Fore.RESET,
+        Fore.LIGHTGREEN_EX + "Peak Memory usage (kB)" + Fore.RESET,
         Fore.MAGENTA + "Version" + Fore.RESET,
     ])
 
@@ -213,7 +216,7 @@ def table_and_graph(total_time: float, nogui: bool) -> None:
 
         #memory usage
         memory_language = list(map(lambda x: x[:][4], list(languages_results.values())))
-        graph(languages, memory_language, "Languages", "Memory (kB)", "Memory usage per language", 4)
+        graph(languages, memory_language, "Languages", "Memory (kB)", "Peak Memory usage per language", 4)
 
         plt.suptitle("Graphs")
         plt.get_current_fig_manager().set_window_title("Results")
