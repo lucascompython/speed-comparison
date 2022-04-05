@@ -17,6 +17,8 @@ languages = {
     "C++": "g++ main.cpp -o main && ./main",
 }
 
+changed_languages = languages.copy()
+
 
 languages_results = {}
 
@@ -32,18 +34,31 @@ def change_round() -> None:
 
 
 
-def name_to_abbr(reverse: bool = True, languages: dict[str, str] | list[str] = languages, capitalize: bool = False) -> dict[str, str] | list[str]:
-    languages_type = type(languages)
+def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[str] = changed_languages, capitalize: bool = False, single: bool = False, single_name: str = "") -> dict[str, str] | list[str]:
+
+    if single:
+        match single_name:
+            case "Csharp":
+                return "C#"
+            case "Cpp":
+                return "C++"
+        return
+
+
+
+    if not entry_languages:
+        entry_languages = languages.copy()
+    languages_type = type(entry_languages)
     #checking if dict and if so convert to list
     if languages_type == dict:
-        languages_values = languages.values()
-        languages = languages.keys()
+        languages_values = entry_languages.values()
+        entry_languages = entry_languages.keys()
 
 
     new_languages = []
     #abbreviation to normal
     if reverse:
-        for language in languages:
+        for language in entry_languages:
             match language.lower():
                 case "c#":
                     new_languages.append("csharp")
@@ -55,7 +70,7 @@ def name_to_abbr(reverse: bool = True, languages: dict[str, str] | list[str] = l
 
     #normal to abbreviation
     else:
-        for language in languages:
+        for language in entry_languages:
             match language.lower():
                 case "csharp":
                     new_languages.append("c#")
@@ -109,8 +124,8 @@ def call_languages() -> None:
             f.seek(0)
             output = f.read().decode("utf8").split()
             #get the compilation time 
+            total_time = float(output[2])
             output[2] = float(output[2]) - float(output[1])
-            total_time = float(output[1]) + float(output[2])
             output.append(total_time)
         languages_results[language] = output
 
@@ -213,7 +228,7 @@ def table_and_graph(total_time: float, nogui: bool) -> None:
         graph(languages, compilation_time_language, "Languages", "Time (s)", "Compilation / Interpretation time per language", 3)
 
         #memory usage
-        memory_language = list(map(lambda x: x[:][4], list(languages_results.values())))
+        memory_language = list(map(lambda x: int(x[:][4]), list(languages_results.values())))
         graph(languages, memory_language, "Languages", "Memory (kB)", "Peak Memory usage per language", 4)
 
         plt.suptitle("Graphs")
@@ -222,7 +237,7 @@ def table_and_graph(total_time: float, nogui: bool) -> None:
 
 
 def menu(nogui: bool) -> None:
-    global ROUNDS
+    global ROUNDS 
     clear()
     start_input = ""
     while (start := start_input.lower()) not in ["start", "play"] :
@@ -230,7 +245,7 @@ def menu(nogui: bool) -> None:
             raise KeyboardInterrupt
         elif start in ["options", "config"]:
             clear()
-            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTCYAN_EX + '(L)anguages' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
+            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
             options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
             options_input = options_input.lower()
             #TODO add options to languages and graphs
@@ -238,13 +253,53 @@ def menu(nogui: bool) -> None:
             if options_input in ["rounds", "round", "r"]:
                 clear()
                 print("The current Rounds are set to: " + Fore.LIGHTCYAN_EX + str(ROUNDS) + Fore.RESET)
+                print("Type the rounds you want to change to!")
                 rounds_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.CYAN}rounds{Fore.RESET}> ")
                 if rounds_input.isdigit():
                     ROUNDS = int(rounds_input)
                     print(f"{Fore.GREEN}Rounds set to {ROUNDS}." + Fore.RESET)
+                else:
+                    print(f"{Fore.LIGHTRED_EX}Invalid rounds value." + Fore.RESET) 
             
             elif options_input in ["language", "languages", "l"]:
-                pass
+                clear()
+                #if no changed languages show all
+                if changed_languages == languages:
+                    print("The current Languages are set to: " + Fore.LIGHTCYAN_EX + ", ".join(map(str, languages.keys())) + Fore.RESET)
+                
+                else: #if changed languages show changed and available
+                    print("The current Languages are set to: " + Fore.LIGHTCYAN_EX + ", ".join(map(str, changed_languages)) + Fore.RESET)
+                    print("The available Languages are set to: " + Fore.LIGHTMAGENTA_EX + ", ".join(map(str, languages.keys())) + Fore.RESET)
+
+                print(f"Type the languages you want to change to! Split them with a comma, and prefix the language with {Fore.MAGENTA}'?'{Fore.RESET} to remove it.")
+                languages_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.LIGHTBLUE_EX}languages{Fore.RESET}> ").replace(" " , "").split(",")
+                for language_input in languages_input:
+                    try:
+
+
+
+
+                        if (capitalized_language := name_to_abbr(single=True, single_name=language_input.lower().capitalize())) in languages.keys():
+                            changed_languages.clear()
+                            changed_languages[capitalized_language] = languages[capitalized_language]
+                            print(f"{Fore.GREEN}Language {capitalized_language} added." + Fore.RESET)
+
+                        elif language_input[0] == "?":
+                            language_name = language_input[1:].lower().capitalize()
+                            language_name = name_to_abbr(single=True, single_name=language_name)
+                            if language_name in changed_languages.keys():
+                                changed_languages.pop(language_name)
+                                print(f"{Fore.MAGENTA}Language {language_name} removed." + Fore.RESET)
+                            else:
+                                print(f"{Fore.LIGHTRED_EX}Language {language_name} not found." + Fore.RESET) 
+
+                        else:
+                            print(f"{Fore.LIGHTRED_EX}Language {language_input} not found." + Fore.RESET)
+
+                    except IndexError:
+                        print(Fore.LIGHTRED_EX + "Invalid language." + Fore.RESET) 
+
+
             elif options_input in ["graph", "graphs", "g"]:
                 pass
 
@@ -263,7 +318,7 @@ def menu(nogui: bool) -> None:
         #if none of the above
         clear()
     change_round()
-    print(f"This comparison will run to {Fore.RED + str(ROUNDS) + Fore.RESET} and it is using {Style.BRIGHT + str(len(languages.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, languages.keys())) + Fore.RESET}")
+    print(f"This comparison will run to {Fore.RED + str(ROUNDS) + Fore.RESET} and it is using {Style.BRIGHT + str(len(changed_languages.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, changed_languages.keys())) + Fore.RESET}")
 
 
     #start actual benchmark
