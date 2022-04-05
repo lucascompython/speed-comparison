@@ -13,7 +13,7 @@
 ---
 # Speed comparison of programming languages 
 
-This projects compares the speed of different programming/scripting languages.
+This project compares the speed of different programming/scripting languages.
 
 It calculates prime and composite numbers with a very basic algorithm from any given interval to do this comparisom.<br>
 All languages use the same algorithm.
