@@ -2,13 +2,15 @@
 
 <div align="center">
 
-![plot](https://cdn.discordapp.com/attachments/628637327878520872/960662699161841664/unknown.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/628637327878520872/960662888492695552/unknown.png "Table") 
+![plot](https://cdn.discordapp.com/attachments/628637327878520872/960997335054291004/unknown.png "Speed comparison of programming languages")
+![table](https://cdn.discordapp.com/attachments/628637327878520872/960997447306465380/unknown.png "Table") 
+
+![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
+
 
 </div>
 
 ---
-![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 # Speed comparison of programming languages 
 
 This projects compares the speed of different programming/scripting languages.
@@ -52,7 +54,7 @@ for(num = lower; num <= upper; num++){
 I'm no expert in all these languages, so take my results with a grain of salt.<br>
 The speed of the language does not determine its quality.
 <!-- Also the findings just show how good the languages can handle floating point operations, which is only one aspect of a programming language. -->
-I'm not doing any optomization in these tests YET.
+I'm not doing any optomization in these tests YET I will add an optimized version for each language.
 
 You are also more than welcome to contribute and help me make fix my possible misuse of some languages.
 ## Languages used in this comparison
@@ -89,6 +91,7 @@ Everything is run by a Docker container and a bash script which envokes the prog
 -->
 
 To measure the execution time, in each language is implemented a timer.
+To measure the compilation / interpretation time and peak memory usage, before each measurement the GNU time command is invoked. 
 The plots are made with [MatPlotLib](https://matplotlib.org).
 
 ### Requirements
@@ -108,17 +111,21 @@ make
 
 > Does it work on Windows?
 
-Yes, I think... It will work for sure when I add a docker Version.
+Yes, I think... It will work for sure and have easy full support when I add a docker version.
 
 > Are the compile/interpret times included in the comparison?
 
-Yes!
+Yes, they are measured by the GNU time command!
+
+> Why do you also count reading a file and printing the ouput?
+
+Because I think this is a more realistic scenario to compare speeds.
 
 ## TODO (Mostly by Order)
 
 
 - [ ] Add Terminal graphs
-- [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80)
+- [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add an option to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
