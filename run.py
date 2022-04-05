@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os, sys, argparse
-from re import I
 from time import time
 from subprocess import check_call, STDOUT
 from tempfile import NamedTemporaryFile
