@@ -15,6 +15,7 @@ with open("./src/rounds.txt", "r") as f:
 languages = {
     "Python": "python3 main.py",
     "C++": "g++ main.cpp -o main && ./main",
+    "JavaScript": "node main.js",
 }
 
 changed_languages = languages.copy()
@@ -42,6 +43,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "C#"
             case "Cpp":
                 return "C++"
+            case "Js":
+                return "JavaScript"
         return
 
 

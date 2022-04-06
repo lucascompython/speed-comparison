@@ -17,7 +17,7 @@ int main() {
     for(int num = 0; num <= rounds; num++){
         int ctr = 0;
 
-        for(int i = 2; i <= num; i++){
+        for(int i = 2; i <= num / 2; i++){
             if(num % i == 0){
                 ctr++;
                 composites++;
