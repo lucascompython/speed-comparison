@@ -33,7 +33,7 @@ def change_round() -> None:
         f.write(str(ROUNDS))
 
 
-
+#possibly remove most of this cauz it's kinda not needed
 def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[str] = changed_languages, capitalize: bool = False, single: bool = False, single_name: str = "") -> dict[str, str] | list[str]:
 
     if single:

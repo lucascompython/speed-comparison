@@ -125,6 +125,7 @@ Because I think this is a more realistic scenario to compare speeds.
 
 
 - [ ] Add Terminal graphs
+- [ ] Add an options to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add an option to run natively 

@@ -1,2 +1,2 @@
 main:
-	@python3 ./run.py -c 25000
+	@python3 ./comparison.py -c 25000
