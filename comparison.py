@@ -50,7 +50,6 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "TypeScript"
             case _:
                 return single_name
-        return
 
 
 
