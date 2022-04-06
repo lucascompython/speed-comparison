@@ -48,6 +48,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "JavaScript"
             case "Ts" | "Deno":
                 return "TypeScript"
+            case _:
+                return single_name
         return
 
 
@@ -286,7 +288,7 @@ def menu(nogui: bool) -> None:
 
 
                         if (capitalized_language := name_to_abbr(single=True, single_name=language_input.lower().capitalize())) in languages.keys():
-                            changed_languages.clear()
+                            #changed_languages.clear()
                             changed_languages[capitalized_language] = languages[capitalized_language]
                             print(f"{Fore.GREEN}Language {capitalized_language} added." + Fore.RESET)
 
