@@ -131,7 +131,6 @@ def call_languages() -> None:
             check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language)
             f.seek(0)
             output = f.read().decode("utf8").split()
-            print(output)
             #get the compilation time 
             total_time = float(output[2])
             output[2] = float(output[2]) - float(output[1])

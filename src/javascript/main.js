@@ -23,4 +23,4 @@ for (let num = 0; num <= rounds; num++) {
     }
 }
 const end = new Date() - start;
-console.log(process.version, end / 1000);
+console.log(process.version.substring(1), end / 1000);
