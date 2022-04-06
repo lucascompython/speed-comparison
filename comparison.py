@@ -16,6 +16,7 @@ languages = {
     "Python": "python3 main.py",
     "C++": "g++ main.cpp -o main && ./main",
     "JavaScript": "node main.js",
+    "TypeScript": "deno run --allow-read --allow-hrtime main.ts"
 }
 
 changed_languages = languages.copy()
@@ -43,8 +44,10 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "C#"
             case "Cpp":
                 return "C++"
-            case "Js":
+            case "Js" | "Node":
                 return "JavaScript"
+            case "Ts" | "Deno":
+                return "TypeScript"
         return
 
 
@@ -126,12 +129,12 @@ def call_languages() -> None:
             check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language)
             f.seek(0)
             output = f.read().decode("utf8").split()
+            print(output)
             #get the compilation time 
             total_time = float(output[2])
             output[2] = float(output[2]) - float(output[1])
             output.append(total_time)
         languages_results[language] = output
-
 
 
 

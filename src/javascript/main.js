@@ -10,7 +10,7 @@ for (let num = 0; num <= rounds; num++) {
     let ctr = 0;
 
     for (let i = 2; i <= num / 2; i++) {
-        if (num % i == 0) {
+        if (num % i === 0) {
             ctr++;
             composites++;
             break;
@@ -18,7 +18,7 @@ for (let num = 0; num <= rounds; num++) {
     }
 
 
-    if (ctr == 0 && num != 1) {
+    if (ctr === 0 && num != 1) {
         primes++;
     }
 }

@@ -62,6 +62,8 @@ You are also more than welcome to contribute and help me make fix my possible mi
 
 - [Python](https://www.python.org/) - interpreted
 - [C++](https://isocpp.org/) - compiled
+- [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-402/) using [Node](https://nodejs.org/en/) - interpreted; JIT
+- [TypeScript](https://www.typescriptlang.org) using [Deno](https://deno.land)
 <!---
 
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled
@@ -124,6 +126,8 @@ Because I think this is a more realistic scenario to compare speeds.
 ## TODO (Mostly by Order)
 
 
+- [X] Add TypeScript with [Deno](https://deno.land)
+- [X] Add JavaScript with [Node](https://nodejs.org)
 - [ ] Add Terminal graphs
 - [ ] Add an options to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
@@ -134,7 +138,6 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Java
 - [ ] Add Rust
 - [ ] Add Golang
-- [ ] Add TypeScript with [Deno](https://deno.land)
 - [ ] Add Kotlin
 - [ ] Add Swift
 - [ ] Add F#
