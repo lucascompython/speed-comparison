@@ -64,10 +64,10 @@ You are also more than welcome to contribute and help me make fix my possible mi
 - [C++](https://isocpp.org/) - compiled
 - [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-402/) using [Node](https://nodejs.org/en/) - interpreted; JIT
 - [TypeScript](https://www.typescriptlang.org) using [Deno](https://deno.land) - interpreted; JIT
+- [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
 <!---
 
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled
-- [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
 - [Go](https://golang.org/) - compiled
 - [Rust](https://www.rust-lang.org/) - compiled
@@ -98,7 +98,7 @@ The plots are made with [MatPlotLib](https://matplotlib.org).
 
 ### Requirements
 
-- `Python 3.10`
+- `Docker`
 - `Makefile` support
 
 ### Instalation and Execution
@@ -128,6 +128,7 @@ Because I think this is a more realistic scenario to compare speeds.
 
 - [X] Add TypeScript with [Deno](https://deno.land)
 - [X] Add JavaScript with [Node](https://nodejs.org)
+- [X] Add Java
 - [ ] Add full Docker Support
 - [ ] Add Terminal graphs
 - [ ] Add an options to run the comparisons in parallel
@@ -135,7 +136,6 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add an option to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add C#
-- [ ] Add Java
 - [ ] Add Rust
 - [ ] Add Golang
 - [ ] Add Kotlin
