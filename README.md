@@ -95,6 +95,7 @@ Everything is run by a Docker container and a bash script which envokes the prog
 To measure the execution time, in each language is implemented a timer.
 To measure the compilation / interpretation time and peak memory usage, before each measurement the GNU time command is invoked. 
 The plots are made with [MatPlotLib](https://matplotlib.org).
+Everything in ran by a Docker container. 
 
 ### Requirements
 
@@ -131,7 +132,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Java
 - [ ] Add full Docker Support
 - [ ] Add Terminal graphs
-- [ ] Add an options to run the comparisons in parallel
+- [ ] Add an option to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add an option to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
