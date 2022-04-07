@@ -1,3 +1,15 @@
+# Speed comparison of programming languages 
+
+This project compares the speed of different programming/scripting languages.
+
+It calculates prime and composite numbers with a very basic algorithm from any given interval to do this comparisom.<br>
+All languages use the same algorithm.
+<!-- and it uses an implementation of the [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to do the comparison. -->
+
+
+<!-- Here is a video which explains how it works: [Calculating π by hand](https://www.youtube.com/watch?v=HrRMnzANHHs) -->
+---
+
 # Preview
 
 <div align="center">
@@ -11,16 +23,6 @@
 </div>
 
 ---
-# Speed comparison of programming languages 
-
-This project compares the speed of different programming/scripting languages.
-
-It calculates prime and composite numbers with a very basic algorithm from any given interval to do this comparisom.<br>
-All languages use the same algorithm.
-<!-- and it uses an implementation of the [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to do the comparison. -->
-
-
-<!-- Here is a video which explains how it works: [Calculating π by hand](https://www.youtube.com/watch?v=HrRMnzANHHs) -->
 
 
 
@@ -135,8 +137,8 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Terminal graphs
 - [ ] Add an option to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
-- [ ] Add an option to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [ ] Add an option to run natively 
 - [ ] Add C#
 - [ ] Add Rust
 - [ ] Add Golang
