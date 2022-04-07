@@ -132,6 +132,7 @@ def call_languages() -> None:
             check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language)
             f.seek(0)
             output = f.read().decode("utf8").split()
+            #for docker
             if language == "typescript":
                 del output[0]; del output[0]
             #get the compilation time 

@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![plot](https://cdn.discordapp.com/attachments/795277227423301643/961397636928241665/unknown.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/795277227423301643/961397727533613077/unknown.png "Table") 
+![plot](https://cdn.discordapp.com/attachments/795277227423301643/961753951261302814/unknown.png "Speed comparison of programming languages")
+![table](https://cdn.discordapp.com/attachments/795277227423301643/961754032744038450/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 
