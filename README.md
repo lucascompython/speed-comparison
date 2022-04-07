@@ -82,6 +82,7 @@ You are also more than welcome to contribute and help me make fix my possible mi
 - Advanced but simple command line integration with multiple options for comparing (E.g: choosing with languages to compare and changing the values of the iterations).
 - All languages will read from a txt file.
 - The program will get and display the memory usage.
+- It also has two modes, one for running native and other for running inside a docker container.
 <!---- Install all the requirements by itself.
 -->
 
