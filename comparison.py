@@ -9,6 +9,7 @@ from prettytable import PrettyTable
 from colorama import Fore, Style
 import matplotlib.pyplot as plt
 
+
 with open("./src/rounds.txt", "r") as f:
     ROUNDS = int(f.read())
 
@@ -16,7 +17,8 @@ languages = {
     "Python": "python3 main.py",
     "C++": "g++ main.cpp -o main && ./main",
     "JavaScript": "node main.js",
-    "TypeScript": "deno run --allow-read --allow-hrtime main.ts"
+    "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
+    "Java": "javac main.java && java main",
 }
 
 changed_languages = languages.copy()
@@ -130,6 +132,8 @@ def call_languages() -> None:
             check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language)
             f.seek(0)
             output = f.read().decode("utf8").split()
+            if language == "typescript":
+                del output[0]; del output[0]
             #get the compilation time 
             total_time = float(output[2])
             output[2] = float(output[2]) - float(output[1])
@@ -240,6 +244,8 @@ def table_and_graph(total_time: float, nogui: bool) -> None:
         plt.suptitle("Graphs")
         plt.get_current_fig_manager().set_window_title("Results")
         plt.show()
+        #save graphs
+        #plt.savefig(fname="./results/graphs.png")
 
 
 def menu(nogui: bool) -> None:
@@ -312,7 +318,6 @@ def menu(nogui: bool) -> None:
 
         elif start in ["info", "information", "details"]:
             print("INFORMATIONS")
-
 
 
 

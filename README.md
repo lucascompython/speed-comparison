@@ -113,7 +113,7 @@ make
 
 > Does it work on Windows?
 
-Yes, I think... It will work for sure and have easy full support when I add a docker version.
+Yes, I think... 
 
 > Are the compile/interpret times included in the comparison?
 
@@ -128,10 +128,10 @@ Because I think this is a more realistic scenario to compare speeds.
 
 - [X] Add TypeScript with [Deno](https://deno.land)
 - [X] Add JavaScript with [Node](https://nodejs.org)
+- [ ] Add full Docker Support
 - [ ] Add Terminal graphs
 - [ ] Add an options to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
-- [ ] Add full Docker Support
 - [ ] Add an option to run natively 
 - [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add C#
