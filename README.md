@@ -184,6 +184,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Bash
 - [ ] Add Powershell
 - [ ] Add Nix
+- [ ] Add V
 - [ ] Add Php
 - [ ] Add R
 - [ ] Add R plots instead of MatPlotLib
