@@ -90,7 +90,8 @@ The speed of the language does not determine its quality.
 <!-- Also the findings just show how good the languages can handle floating point operations, which is only one aspect of a programming language. -->
 I'm not doing any optomization in these tests YET I will add an optimized version for each language.
 
-You are also more than welcome to contribute and help me make fix my possible misuse of some languages.
+You are also more than welcome to contribute and help me.
+
 ## Languages used in this comparison
 
 
