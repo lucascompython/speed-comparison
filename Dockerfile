@@ -2,7 +2,7 @@ FROM archlinux
 
 USER root
 
-RUN pacman --noconfirm -Sy python3 python-pip nodejs deno gcc jdk-openjdk
+RUN pacman --noconfirm -Sy python3 python-pip nodejs deno gcc jdk-openjdk pypy3
 #RUN pacman --noconfirm -Sy python-pip
 #RUN pacman --noconfirm -Sy nodejs
 #RUN pacman --noconfirm -Sy deno
