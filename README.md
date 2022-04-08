@@ -65,7 +65,7 @@ for num in range(rounds):
         primes += 1
 ```
 
-The code below is an implemation of the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+The code below is an implemation of the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) in Python
 
 ```python
 primes = [True for _ in range(rounds + 1)]
