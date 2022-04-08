@@ -17,7 +17,7 @@ public class main {
         int primes = 0, composites = 0;
 
         try {
-            data = readFile("../rounds.txt", StandardCharsets.UTF_8);
+            data = readFile("../../rounds.txt", StandardCharsets.UTF_8);
         } catch (IOException err) {
             System.out.println("Couldn't read file:\n" + err.getMessage());
         }

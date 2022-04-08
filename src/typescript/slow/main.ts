@@ -1,5 +1,5 @@
 const start = performance.now();
-const rounds: number = parseInt(await Deno.readTextFile("../rounds.txt"));
+const rounds: number = parseInt(await Deno.readTextFile("../../rounds.txt"));
 
 let primes: number = 1, composites: number = 1;
 

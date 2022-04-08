@@ -1,7 +1,7 @@
 import time
 import sys
 start = time.time()
-with open("../rounds.txt") as f:
+with open("../../rounds.txt") as f:
     rounds = int(f.read())
 
 primes = 0

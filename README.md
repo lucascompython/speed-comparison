@@ -2,7 +2,7 @@
 
 This project compares the speed of different programming/scripting languages.
 
-It calculates prime and composite numbers with a very basic algorithm from any given interval to do this comparisom.<br>
+It calculates prime and composite numbers with a very basic algorithm an more advanced one, from any given interval to do this comparisom.<br>
 All languages use the same algorithm.
 <!-- and it uses an implementation of the [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to do the comparison. -->
 
@@ -29,26 +29,39 @@ All languages use the same algorithm.
 
 
 ## Methods
-The code below is a C++ code snippet of the not optimal but not bad algorithm used for counting prime and composite numbers to a given range, that is used for the different languages.
 
-```c++
-for(num = lower; num <= upper; num++){
-        ctr = 0;
+The code below is a Python code snippet of the not optimal but not bad algorithm used for counting prime and composite numbers to a given range, that is used for the different languages.
 
-        for(i = 2; i <= num / 2; i++){
-            if(num % i == 0){
-                ctr++;
-                composite++;
-                break;
-        }
-    }
-    
-        if(ctr == 0 && num != 1){
-        prime++;
-    }
-} 
+```python
+for num in range(rounds):
+    ctr = 0
+
+    for i in range(2, num // 2):
+        if num % i == 0:
+            ctr += 1
+            composites +=1
+            break
+
+    if ctr == 0 and num != 1:
+        primes += 1
 ```
 
+The code below is an implemation of the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+
+```python
+primes = [True for _ in range(rounds + 1)]
+
+for i in range(2, round(sqrt(rounds)) + 1):
+    if primes[i]:
+        for j in range(i ** 2, rounds, i):
+            primes[j] = False
+
+total = 0
+for k in range(2, rounds):
+    if primes[k]:
+        total += 1
+composites = rounds - total
+```
 
 
 ## Disclaimer
@@ -85,6 +98,7 @@ You are also more than welcome to contribute and help me make fix my possible mi
 - All languages will read from a txt file.
 - The program will get and display the memory usage.
 - It also has two modes, one for running native and other for running inside a docker container.
+- Various ways of comparing the languages.
 <!---- Install all the requirements by itself.
 -->
 
@@ -98,7 +112,7 @@ Everything is run by a Docker container and a bash script which envokes the prog
 To measure the execution time, in each language is implemented a timer.
 To measure the compilation / interpretation time and peak memory usage, before each measurement the GNU time command is invoked. 
 The plots are made with [MatPlotLib](https://matplotlib.org).
-Everything in ran by a Docker container. 
+Everything in ran by a Docker container.
 
 ### Requirements
 
@@ -133,12 +147,12 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add TypeScript with [Deno](https://deno.land)
 - [X] Add JavaScript with [Node](https://nodejs.org)
 - [X] Add Java
+- [ ] Finish adding an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add full Docker Support
-- [ ] Add Terminal graphs
-- [ ] Add an option to run the comparisons in parallel
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
-- [ ] Add an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add an option to run natively 
+- [ ] Add an option to run the comparisons in parallel
+- [ ] Add Terminal graphs
 - [ ] Add C#
 - [ ] Add Rust
 - [ ] Add Golang

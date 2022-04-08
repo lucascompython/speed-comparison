@@ -2,7 +2,7 @@ const start = new Date();
 
 const fs = require('fs');
 
-const rounds = parseInt(fs.readFileSync("../rounds.txt").toString());
+const rounds = parseInt(fs.readFileSync("../../rounds.txt").toString());
 let composites = 0, primes = 0;
 
 
