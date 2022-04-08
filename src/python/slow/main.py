@@ -13,7 +13,7 @@ for num in range(rounds):
     for i in range(2, num // 2):
         if num % i == 0:
             ctr += 1
-            composites +=1
+            composites += 1
             break
 
     if ctr == 0 and num != 1:
