@@ -18,7 +18,26 @@ All languages use the same algorithms.
 ![table](https://cdn.discordapp.com/attachments/795277227423301643/961754032744038450/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
-
+<p>
+  <a href="https://github.com/lucascompython/speed-comparison/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/lucascompython/speed-comparison" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/lucascompython/speed-comparison" alt="last update" />
+  </a>
+  <a href="https://github.com/lucascompython/speed-comparison/network/members">
+    <img src="https://img.shields.io/github/forks/lucascompython/speed-comparison" alt="forks" />
+  </a>
+  <a href="https://github.com/lucascompython/speed-comparison/stargazers">
+    <img src="https://img.shields.io/github/stars/lucascompython/speed-comparison" alt="stars" />
+  </a>
+  <a href="https://github.com/lucascompython/speed-comparison/issues/">
+    <img src="https://img.shields.io/github/issues/lucascompython/speed-comparison" alt="open issues" />
+  </a>
+  <a href="https://github.com/lucascompython/speed-comparison/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/lucascompython/speed-comparison.svg" alt="license" />
+  </a>
+</p>
 
 </div>
 
