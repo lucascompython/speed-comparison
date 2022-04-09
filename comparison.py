@@ -27,6 +27,7 @@ SLOW_LANGUAGES = {
 FAST_LANGUAGES = {
     "Python": "pypy3 main.py",
     "C++": "g++ -O3 -o main main.cpp && ./main",
+    "JavaScript": "node main.js"
 }
 
 
