@@ -167,7 +167,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add TypeScript with [Deno](https://deno.land)
 - [X] Add JavaScript with [Node](https://nodejs.org)
 - [X] Add Java
-- [ ] Finish adding an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [X] Finish adding an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add an option to run natively 

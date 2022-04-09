@@ -137,7 +137,7 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
 #TODO maybe put the check_call in a subfunction
 def call_languages(MODE: str) -> dict[str: float]:
-
+    DOCKER = os.environ.get("DOCKER", False)
     def sync_call(languages: dict[str, str], mode: str) -> None:
         for language, command in languages.items():
             print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
@@ -147,6 +147,9 @@ def call_languages(MODE: str) -> dict[str: float]:
                 check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd=path)
                 f.seek(0)
                 output = f.read().decode("utf-8").split()
+                if DOCKER:
+                    if language == "typescript":
+                        del output[0]; del output[0]
                 total_time = float(output[2])
                 output[2] = float(output[2]) - float(output[1])
                 output.append(total_time)

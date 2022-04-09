@@ -10,7 +10,7 @@ RUN pip3 install -r /tmp/requirements.txt
 ADD . /usr/src/app
 WORKDIR /usr/src/app
 ENV NO_COLOR=true
-
+ENV DOCKER=true
 
 CMD ["python3", "/usr/src/app/comparison.py"]
 
