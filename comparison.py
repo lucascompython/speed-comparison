@@ -27,7 +27,8 @@ SLOW_LANGUAGES = {
 FAST_LANGUAGES = {
     "Python": "pypy3 main.py",
     "C++": "g++ -O3 -o main main.cpp && ./main",
-    "JavaScript": "node main.js"
+    "JavaScript": "node main.js",
+    "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
 }
 
 
