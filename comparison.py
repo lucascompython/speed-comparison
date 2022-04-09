@@ -29,6 +29,8 @@ FAST_LANGUAGES = {
     "C++": "g++ -O3 -o main main.cpp && ./main",
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
+    "Java": "javac main.java && java main",
+
 }
 
 

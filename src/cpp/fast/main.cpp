@@ -33,6 +33,9 @@ int main() {
             primes++;
         }
     }
+
+    int composites = rounds - primes;
+
     //end timer
     auto end = chrono::high_resolution_clock::now();
     auto milliseconds = chrono::duration_cast<chrono::milliseconds>(end - start).count();
