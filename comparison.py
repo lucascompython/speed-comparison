@@ -52,7 +52,7 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
     if single:
         match single_name:
-            case "Csharp":
+            case "Csharp" | "Cs":
                 return "C#"
             case "Cpp":
                 return "C++"
@@ -91,7 +91,7 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
     else:
         for language in entry_languages:
             match language.lower():
-                case "csharp":
+                case "csharp" | "cs":
                     new_languages.append("c#")
                 case "cpp":
                     new_languages.append("c++")
@@ -131,54 +131,39 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
 
 #TODO maybe put the check_call in a subfunction
-def call_languages(MODE: str) -> None:
-    global languages_output
+def call_languages(MODE: str) -> dict[str: float]:
+
+    def sync_call(languages: dict[str, str], mode: str) -> None:
+        for language, command in languages.items():
+            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
+            path = os.path.join("./src/", language, mode)
+            with NamedTemporaryFile() as f:
+                ##TODO remove shell=True and the extra sh
+                check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd=path)
+                f.seek(0)
+                output = f.read().decode("utf-8").split()
+                total_time = float(output[2])
+                output[2] = float(output[2]) - float(output[1])
+                output.append(total_time)
+            #set the results into the corresponding dict
+            exec(f"{mode.upper()}_LANGUAGES_RESULTS[language] = output")
+
     return_times = {}
     #normal
-    if MODE in ["both", "slow", "unoptimized"]:
+    if MODE in ["slow", "both"]:
         languages = name_to_abbr()
-        slow_start = time() 
-        for language, command in languages.items():
-            #fast asf refer: https://stackoverflow.com/questions/13835055/python-subprocess-check-output-much-slower-then-call
-            with NamedTemporaryFile() as f:
-                #TODO remove shell=True and the extra sh
-                check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language + "/slow")
-                f.seek(0)
-                output = f.read().decode("utf8").split()
-                #for docker
-                #if language == "typescript":
-                    #del output[0]; del output[0]
-                #get the compilation time 
-                total_time = float(output[2])
-                output[2] = float(output[2]) - float(output[1])
-                output.append(total_time)
-            SLOW_LANGUAGES_RESULTS[language] = output
+        start = time()
+        sync_call(languages, "slow")
+        end = time() - start
+        return_times["slow"] = end
 
-        slow_end = time() - slow_start
-        return_times["slow"] = slow_end
 
-    if MODE in ["both", "fast", "optimized"]:
+    if MODE in ["fast", "both"]:
         languages = name_to_abbr(entry_languages=FAST_CHANGED_LANGUAGES)
-        fast_start = time()
-        for language, command in languages.items():
-
-            #fast asf refer: https://stackoverflow.com/questions/13835055/python-subprocess-check-output-much-slower-then-call
-            with NamedTemporaryFile() as f:
-                #TODO remove shell=True and the extra sh
-                check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd="./src/" + language + "/fast")
-                f.seek(0)
-                output = f.read().decode("utf8").split()
-                #for docker
-                if language == "typescript":
-                    del output[0]; del output[0]
-                #get the compilation time 
-                total_time = float(output[2])
-                output[2] = float(output[2]) - float(output[1])
-                output.append(total_time)
-            FAST_LANGUAGES_RESULTS[language] = output
-
-        fast_end = time() - fast_start
-        return_times["fast"] = fast_end
+        start = time()
+        sync_call(languages, "fast")
+        end = time() - start
+        return_times["fast"] = end
 
     return return_times
 
@@ -207,7 +192,6 @@ def arg_parser() -> argparse.Namespace:
 
 def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float]) -> None:
 
-
     def graph(languages_array: list) -> None:
 
         x = name_to_abbr(False, list(languages_array.keys()), True)
@@ -219,16 +203,16 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
 
 
-        total_time_language = list(map(lambda x: round(x[:][-1], 3), list(SLOW_LANGUAGES_RESULTS.values())))
+        total_time_language = list(map(lambda x: round(x[:][-1], 3), list(languages_array.values())))
         y.append(total_time_language)   
 
-        execution_time_language = list(map(lambda x: round(float(x[:][1]), 3), list(SLOW_LANGUAGES_RESULTS.values()))) 
+        execution_time_language = list(map(lambda x: round(float(x[:][1]), 3), list(languages_array.values()))) 
         y.append(execution_time_language)   
 
-        compilation_time_language = list(map(lambda x: round(float(x[:][2]), 3), list(SLOW_LANGUAGES_RESULTS.values())))
+        compilation_time_language = list(map(lambda x: round(float(x[:][2]), 3), list(languages_array.values())))
         y.append(compilation_time_language)   
 
-        memory_language = list(map(lambda x: int(x[:][4]), list(SLOW_LANGUAGES_RESULTS.values())))
+        memory_language = list(map(lambda x: int(x[:][4]), list(languages_array.values())))
         y.append(memory_language)   
         for index, _y in enumerate(y):
             xlabel = xlabels[index]
@@ -245,15 +229,18 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
     
 
     def table(results_list: list, total_times: float) -> None:
+        terminal_with = os.get_terminal_size().columns
         
-        my_table = PrettyTable([
-            Fore.RED + "Language" + Fore.RESET,
-            Fore.GREEN + "Total time (s)" + Fore.RESET,
-            Fore.BLUE + "Execution time (s)" + Fore.RESET,
-            Fore.CYAN + "Compilation / Interpretation time (s)" + Fore.RESET,
-            Fore.LIGHTGREEN_EX + "Peak Memory usage (kB)" + Fore.RESET,
-            Fore.MAGENTA + "Version" + Fore.RESET,
-        ])
+        my_table = PrettyTable(
+            [
+                Fore.RED + "Language" + Fore.RESET,
+                Fore.GREEN + "Total time (s)" + Fore.RESET,
+                Fore.BLUE + "Execution time (s)" + Fore.RESET,
+                Fore.CYAN + "Compilation / Interpretation time (s)" + Fore.RESET,
+                Fore.LIGHTGREEN_EX + "Peak Memory usage (kB)" + Fore.RESET,
+                Fore.MAGENTA + "Version" + Fore.RESET,
+            ]
+        )
 
 
         total_execution_time = 0
@@ -286,10 +273,8 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
         ])
-
         print(my_table)
-
-    if MODE in ["both", "slow", "unoptimized"]:
+    if MODE in ["slow", "both"]:
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
         if not nogui:
@@ -302,7 +287,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             #save graphs
             #plt.savefig(fname="./results/graphs.png")
 
-    if MODE in ["both", "fast", "optimized"]:
+    if MODE in ["fast", "both"]:
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
         if not nogui:
@@ -354,6 +339,9 @@ def menu(nogui: bool) -> None:
                     print(f"{Fore.GREEN}Mode set to {MODE}." + Fore.RESET)
                 elif mode_input.lower() in ["slow", "unoptimized"]:
                     MODE = "slow"
+                    print(f"{Fore.GREEN}Mode set to {MODE}." + Fore.RESET)
+                elif mode_input.lower() == "both":
+                    MODE = "both"
                     print(f"{Fore.GREEN}Mode set to {MODE}." + Fore.RESET)
 
                 else:
