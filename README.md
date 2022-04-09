@@ -88,7 +88,6 @@ composites = rounds - total
 I'm no expert in all these languages, so take my results with a grain of salt.<br>
 The speed of the language does not determine its quality.
 <!-- Also the findings just show how good the languages can handle floating point operations, which is only one aspect of a programming language. -->
-I'm not doing any optomization in these tests YET I will add an optimized version for each language.
 
 You are also more than welcome to contribute and help me.
 
@@ -132,7 +131,7 @@ Everything is run by a Docker container and a bash script which envokes the prog
 To measure the execution time, in each language is implemented a timer.
 To measure the compilation / interpretation time and peak memory usage, before each measurement the GNU time command is invoked. 
 The plots are made with [MatPlotLib](https://matplotlib.org).
-Everything in ran by a Docker container.
+Everything can be ran inside a Docker container.
 
 ### Requirements
 
@@ -144,7 +143,7 @@ Everything in ran by a Docker container.
 ```bash
 git clone https://github.com/lucascompython/speed-comparison.git
 cd speed-comparison
-make
+make run-native #to run natively must have all requirements, to run inside docker use make build && make run-docker 
 ```
 
 ## FAQ
@@ -162,7 +161,6 @@ Yes, they are measured by the GNU time command!
 Because I think this is a more realistic scenario to compare speeds.
 
 ## TODO (Mostly by Order)
-
 
 - [X] Add TypeScript with [Deno](https://deno.land)
 - [X] Add JavaScript with [Node](https://nodejs.org)
