@@ -10,8 +10,9 @@ int main() {
     auto start = chrono::high_resolution_clock::now();
     //read from file
     ifstream file("../../rounds.txt");
-    string str((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    int rounds = stoi(str);
+    int rounds = 0;
+    file >> rounds;
+    file.close();
     int primes, composites;
 
     for(int num = 0; num <= rounds; num++){

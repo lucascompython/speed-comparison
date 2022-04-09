@@ -26,6 +26,7 @@ SLOW_LANGUAGES = {
 
 FAST_LANGUAGES = {
     "Python": "pypy3 main.py",
+    "C++": "g++ -O3 -o main main.cpp && ./main",
 }
 
 
@@ -273,7 +274,9 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
         ])
+
         print(my_table)
+
     if MODE in ["slow", "both"]:
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
