@@ -118,6 +118,7 @@ You are also more than welcome to contribute and help me.
 - The program will get and display the memory usage.
 - It also has two modes, one for running native and other for running inside a docker container.
 - Various ways of comparing the languages.
+- Can chosso to run in sequence or in parallel.
 <!---- Install all the requirements by itself.
 -->
 
@@ -166,10 +167,10 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add JavaScript with [Node](https://nodejs.org)
 - [X] Add Java
 - [X] Finish adding an optimized version for each language using compiler optimizations and using the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [X] Add an option to run the comparisons in parallel
+- [X] Add an option to run natively 
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
-- [ ] Add an option to run natively 
-- [ ] Add an option to run the comparisons in parallel
 - [ ] Add Terminal graphs
 - [ ] Add C#
 - [ ] Add Rust

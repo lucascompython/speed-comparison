@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
+from collections import namedtuple
 import os, sys, argparse
 from time import time
-from subprocess import check_call, STDOUT
+from subprocess import check_call, STDOUT, Popen, PIPE
 from tempfile import NamedTemporaryFile
 
 from prettytable import PrettyTable
@@ -136,7 +137,7 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
 
 #TODO maybe put the check_call in a subfunction
-def call_languages(MODE: str) -> dict[str: float]:
+def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
     DOCKER = os.environ.get("DOCKER", False)
     def sync_call(languages: dict[str, str], mode: str) -> None:
         for language, command in languages.items():
@@ -147,21 +148,56 @@ def call_languages(MODE: str) -> dict[str: float]:
                 check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd=path)
                 f.seek(0)
                 output = f.read().decode("utf-8").split()
-                if DOCKER:
-                    if language == "typescript":
-                        del output[0]; del output[0]
-                total_time = float(output[2])
-                output[2] = float(output[2]) - float(output[1])
-                output.append(total_time)
+            if DOCKER:
+                if language == "typescript":
+                    del output[0]; del output[0]
+            total_time = float(output[2])
+            output[2] = float(output[2]) - float(output[1])
+            output.append(total_time)
             #set the results into the corresponding dict
             exec(f"{mode.upper()}_LANGUAGES_RESULTS[language] = output")
+
+
+
+    def async_call(languages: dict[str, str], mode: str) -> None:
+        processes = []
+        for language, command in languages.items():
+            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
+            path = os.path.join("./src/", language, mode)
+            #named open temp file
+            f = NamedTemporaryFile()
+            process = Popen(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, cwd=path, stdout=f, stderr=STDOUT)
+            processes.append((process, f))
+        #wait for all processes to finish and get the output
+        for index, (process, f) in enumerate(processes):
+            out, error = process.communicate()
+            f.seek(0)
+            output = f.read().decode("utf-8").split()
+            f.close()
+            #output = output.decode("utf-8").split()
+            if error: print(Fore.RED + error + Fore.RESET); break
+
+            if DOCKER:
+                if language == "typescript":
+                    del output[0]; del output[0]
+
+
+            total_time = float(output[2])
+            output[2] = float(output[2]) - float(output[1])
+            output.append(total_time)
+            #set the results into the corresponding dict
+            exec(f"{mode.upper()}_LANGUAGES_RESULTS[list(languages.keys())[index]] = output")
 
     return_times = {}
     #normal
     if MODE in ["slow", "both"]:
         languages = name_to_abbr()
         start = time()
-        sync_call(languages, "slow")
+        if PROCESS_MODE == "sync":
+            sync_call(languages, "slow")
+        else:
+            async_call(languages, "slow")
+
         end = time() - start
         return_times["slow"] = end
 
@@ -169,7 +205,11 @@ def call_languages(MODE: str) -> dict[str: float]:
     if MODE in ["fast", "both"]:
         languages = name_to_abbr(entry_languages=FAST_CHANGED_LANGUAGES)
         start = time()
-        sync_call(languages, "fast")
+        if PROCESS_MODE == "sync":
+            sync_call(languages, "fast")
+        else:
+            async_call(languages, "fast")
+
         end = time() - start
         return_times["fast"] = end
 
@@ -314,6 +354,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 def menu(nogui: bool) -> None:
     global ROUNDS 
     MODE = "both"
+    PROCESS_MODE = "sync"
     clear()
     start_input = ""
     while (start := start_input.lower()) not in ["start", "play"] :
@@ -321,7 +362,7 @@ def menu(nogui: bool) -> None:
             raise KeyboardInterrupt
         elif start in ["options", "config"]:
             clear()
-            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.LIGHTYELLOW_EX+ '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
+            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.MAGENTA + '(P)Rocess' + Fore.RESET}    {Fore.LIGHTYELLOW_EX + '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
             options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
             options_input = options_input.lower()
             #TODO add options to languages and graphs
@@ -338,6 +379,22 @@ def menu(nogui: bool) -> None:
                 else:
                     print(f"{Fore.LIGHTRED_EX}Invalid rounds value." + Fore.RESET) 
             
+
+            elif options_input in ["process", "p", "processess"]:
+                clear()
+                print("The current Processess mode are set to: " + Fore.LIGHTCYAN_EX + PROCESS_MODE.capitalize() + Fore.RESET + ".")
+                print(f"Type the processess mode you want to change to!\nEnter either {Fore.LIGHTGREEN_EX}'sync/sequence'{Fore.RESET} or {Fore.LIGHTGREEN_EX}'async/parallel'{Fore.RESET}")
+                process_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.MAGENTA}process{Fore.RESET}> ")
+                if process_input in ["sync", "sequence"]:
+                    PROCESS_MODE = "sync"
+                    print(f"{Fore.GREEN}Processess mode set to {PROCESS_MODE}." + Fore.RESET)
+                elif process_input in ["async", "parallel"]:
+                    PROCESS_MODE = "async"
+                    print(f"{Fore.GREEN}Processess mode set to {PROCESS_MODE}." + Fore.RESET)
+                else:
+                    print(f"{Fore.LIGHTRED_EX}Invalid processess mode." + Fore.RESET)
+
+
 
             elif options_input in ["mode", "m"]:
                 clear()
@@ -422,12 +479,12 @@ def menu(nogui: bool) -> None:
         #if none of the above
         clear()
     change_round()
-    print(f"This comparison will run to {Fore.RED + str(ROUNDS) + Fore.RESET} and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
+    print(f"This comparison will run to {Fore.RED + str(ROUNDS) + Fore.RESET} in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
 
 
     #start actual benchmark
     start_benchmark = time()
-    times = call_languages(MODE)
+    times = call_languages(MODE, PROCESS_MODE)
     total_benchmark = time() - start_benchmark
     table_and_graph(total_benchmark, nogui, MODE, times)
 
