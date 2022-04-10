@@ -1,4 +1,4 @@
 .porn
-./src/rounds.txt
+/src/*.txt
 .vscode
 results/*
