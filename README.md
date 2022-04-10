@@ -118,7 +118,7 @@ You are also more than welcome to contribute and help me.
 - The program will get and display the memory usage.
 - It also has two modes, one for running native and other for running inside a docker container.
 - Various ways of comparing the languages.
-- Can chosso to run in sequence or in parallel.
+- Can choose to run in sequence or in parallel.
 <!---- Install all the requirements by itself.
 -->
 
@@ -151,7 +151,7 @@ make run-native #to run natively must have all requirements, to run inside docke
 
 > Does it work on Windows?
 
-Yes, I think... 
+Yes, I think...
 
 > Are the compile/interpret times included in the comparison?
 
