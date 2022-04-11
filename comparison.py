@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
-from collections import namedtuple
 import os, sys, argparse
 from time import time
 from subprocess import check_call, STDOUT, Popen, PIPE
 from tempfile import NamedTemporaryFile
+import re, json, yaml, toml, configparser, xml
+
+
+
 
 from prettytable import PrettyTable
 from colorama import Fore, Style
@@ -236,18 +239,30 @@ def arg_parser() -> argparse.Namespace:
     args = parser.parse_args()
     return args
 
+def save_results(table: PrettyTable) -> None:
+    #SAVE to csv  
+    #regex to filter out all the ansi escape sequences
+    regex = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
+    csv_string = regex.sub("", table.get_csv_string())
+    with open("./results/results.csv", "a") as outcsv:
+        outcsv.write(csv_string + "\n")
+
+    json_string = table.get_json_string()
+    with open("./results/results.json", "w") as outjson:
+        json.dump(json_string, outjson, indent=4)
+
 
 
 
 def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float]) -> None:
 
-    def graph(languages_array: list) -> None:
+    def graph(languages_array: list, mode: str) -> None:
 
         x = name_to_abbr(False, list(languages_array.keys()), True)
         y = []
         xlabels = "Languages"
         ylabels = ["Times (s)", "Time (s)", "Time (s)", "Memory (kB)"]
-        titles = ["Total time per language", "Execution time per language", "Compilation/Interpretation time per language", "Memory usage per language"]
+        titles = ["Total time per language", "Execution time per language", "Compilation/Interpretation time per language", "Peak memory usage per language"]
 
 
 
@@ -274,10 +289,12 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             plt.xlabel(xlabel)
             plt.ylabel(ylabel)
             plt.title(title)
+            plt.savefig(fname=f"./results/graphs{mode}.png")
             plt.grid()
     
 
     def table(results_list: list, total_times: float) -> None:
+        #TODO CENTER TABLE
         terminal_with = os.get_terminal_size().columns
         
         my_table = PrettyTable(
@@ -322,7 +339,8 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
         ])
-
+        save_results(my_table)
+        #print(my_tablet_csv_string())
         print(my_table)
 
     if MODE in ["slow", "both"]:
@@ -330,11 +348,11 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         #graphs
         if not nogui:
 
-            graph(SLOW_LANGUAGES_RESULTS)
-
+            graph(SLOW_LANGUAGES_RESULTS, "slow")
             plt.suptitle("Graphs")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
+
             #save graphs
             #plt.savefig(fname="./results/graphs.png")
 
@@ -342,13 +360,12 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
         if not nogui:
-            graph(FAST_LANGUAGES_RESULTS)
+            graph(FAST_LANGUAGES_RESULTS, "fast")
             plt.suptitle("Graphs")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
             #save graphs
             #plt.savefig(fname="./results/graphs.png")
-
     print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + " seconds.")
 
 #TODO maybe add a while loop for wrong inputs
