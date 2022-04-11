@@ -240,14 +240,15 @@ def arg_parser() -> argparse.Namespace:
     return args
 
 def save_results(table: PrettyTable) -> None:
-    #SAVE to csv  
     #regex to filter out all the ansi escape sequences
     regex = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
+    #SAVE to csv  
     csv_string = regex.sub("", table.get_csv_string())
     with open("./results/results.csv", "a") as outcsv:
         outcsv.write(csv_string + "\n")
 
     json_string = table.get_json_string()
+    print(type(json_string))
     with open("./results/results.json", "w") as outjson:
         json.dump(json_string, outjson, indent=4)
 
@@ -454,9 +455,7 @@ def menu(nogui: bool) -> None:
                         if (capitalized_language := name_to_abbr(single=True, single_name=language_input.lower().capitalize())) in SLOW_LANGUAGES.keys():
                             #SLOW_CHANGED_LANGUAGES.clear()
                             SLOW_CHANGED_LANGUAGES[capitalized_language] = SLOW_LANGUAGES[capitalized_language]
-                            #TODO remove this shitty if statement when all the optimized version are added
-                            if capitalized_language in FAST_LANGUAGES_RESULTS.keys():
-                                FAST_CHANGED_LANGUAGES[capitalized_language] = FAST_LANGUAGES[capitalized_language]
+                            FAST_CHANGED_LANGUAGES[capitalized_language] = FAST_LANGUAGES[capitalized_language]
 
                             print(f"{Fore.GREEN}Language {capitalized_language} added." + Fore.RESET)
 
@@ -465,9 +464,7 @@ def menu(nogui: bool) -> None:
                             language_name = name_to_abbr(single=True, single_name=language_name)
                             if language_name in SLOW_CHANGED_LANGUAGES.keys():
                                 SLOW_CHANGED_LANGUAGES.pop(language_name)
-                                #TODO remove this shitty if statement when all the optimized version are added
-                                if language_name in FAST_LANGUAGES.keys():
-                                    FAST_CHANGED_LANGUAGES.pop(language_name)
+                                FAST_CHANGED_LANGUAGES.pop(language_name)
 
                                 print(f"{Fore.MAGENTA}Language {language_name} removed." + Fore.RESET)
                             else:
