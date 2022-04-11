@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "W9GwjoigurP1HKmzpULeHmiCl2nEQFsbmuQ+y6Dp6ibg+490Bjqp3BEsa1IPWch43MoPLJIxHL7j34PfAbxxlA==",
+  "success": true,
+  "projectFilePath": "/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/fast.csproj",
+  "expectedPackageFiles": [
+    "/home/lucascomdrip/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
