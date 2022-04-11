@@ -100,6 +100,7 @@ You are also more than welcome to contribute and help me.
 - [TypeScript](https://www.typescriptlang.org) using [Deno](https://deno.land) - interpreted; JIT
 - [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled, VM
+- [Lua](https://www.lua.org) - interpreted, JIT
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
@@ -171,6 +172,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add an option to run the comparisons in parallel
 - [X] Add an option to run natively 
 - [X] Add C#
+- [X] Add Lua
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add Terminal graphs
@@ -180,7 +182,6 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Swift
 - [ ] Add F#
 - [ ] Add Haskell
-- [ ] Add Lua
 - [ ] Add Scala
 - [ ] Add Bash
 - [ ] Add Powershell

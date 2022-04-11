@@ -731,3 +731,123 @@ Java,0.82,0.01,0.81,86548,18
 C#,1.84,0.011,1.829,140004,6.0.2
 Total (6),3.567,0.043,3.467,449452,####
 
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,2.19,2.171,0.019,8716,3.10.4
+C++,0.54,0.072,0.468,67524,11.2.0
+Javascript,0.15,0.101,0.049,36344,17.9.0
+Typescript,0.12,0.102,0.018,36412,1.20.5
+Java,0.9,0.083,0.817,85112,18
+C#,1.89,0.09,1.8,133036,6.0.2
+Lua,0.4,0.397,0.003,3564,5.4
+Total (7),6.247,3.016,3.174,370708,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.09,0.008,0.082,66084,3.8.13
+C++,0.68,0.0,0.68,86172,11.2.0
+Javascript,0.05,0.009,0.041,36572,17.9.0
+Typescript,0.03,0.006,0.024,33020,1.20.5
+Java,0.82,0.01,0.81,86468,18
+C#,1.83,0.011,1.819,144612,6.0.2
+Lua,0.0,0.002,-0.002,3652,5.4
+Total (7),3.565,0.045,3.455,456580,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,2.04,2.022,0.018,8384,3.10.4
+C++,0.55,0.072,0.478,67508,11.2.0
+Javascript,0.15,0.102,0.048,36420,17.9.0
+Typescript,0.12,0.103,0.017,36496,1.20.5
+Java,0.9,0.086,0.814,85992,18
+C#,1.89,0.09,1.8,130448,6.0.2
+Lua,0.4,0.398,0.002,3636,5.4
+Total (7),6.121,2.874,3.176,368884,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.1,0.007,0.093,65992,3.8.13
+C++,0.69,0.0,0.69,86240,11.2.0
+Javascript,0.05,0.008,0.042,36692,17.9.0
+Typescript,0.03,0.006,0.024,32672,1.20.5
+Java,0.96,0.011,0.949,84224,18
+C#,1.82,0.011,1.809,144388,6.0.2
+Lua,0.0,0.002,-0.002,3588,5.4
+Total (7),3.712,0.045,3.605,453796,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,2.23,2.193,0.037,8560,3.10.4
+C++,0.82,0.077,0.743,67556,11.2.0
+Javascript,0.27,0.174,0.096,36192,17.9.0
+Typescript,0.24,0.198,0.042,36488,1.20.5
+Java,1.62,0.089,1.531,78988,18
+C#,2.47,0.09,2.38,133784,6.0.2
+Lua,0.63,0.4,0.23,3588,5.4
+Total (7),2.49,3.221,5.059,365156,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.13,0.008,0.122,65560,3.8.13
+C++,0.82,0.0,0.82,86280,11.2.0
+Javascript,0.1,0.011,0.089,36576,17.9.0
+Typescript,0.07,0.016,0.054,32664,1.20.5
+Java,1.19,0.01,1.18,76028,18
+C#,2.21,0.011,2.199,134372,6.0.2
+Lua,0.01,0.002,0.008,3520,5.4
+Total (7),2.241,0.059,4.471,435000,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,2.27,2.209,0.061,8560,3.10.4
+C++,1.05,0.085,0.965,67560,11.2.0
+Javascript,0.4,0.262,0.138,36108,17.9.0
+Typescript,0.31,0.228,0.082,36340,1.20.5
+Java,1.77,0.085,1.685,85848,18
+C#,2.67,0.107,2.563,134780,6.0.2
+Lua,0.64,0.4,0.24,3604,5.4
+Total (7),2.727,3.376,5.734,372800,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.2,0.009,0.191,66108,3.8.13
+C++,0.96,0.0,0.96,86312,11.2.0
+Javascript,0.13,0.01,0.12,36260,17.9.0
+Typescript,0.09,0.012,0.078,32712,1.20.5
+Java,1.29,0.011,1.279,77460,18
+C#,2.26,0.012,2.248,138728,6.0.2
+Lua,0.02,0.002,0.018,3640,5.4
+Total (7),2.321,0.056,4.894,441220,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,1.71,1.691,0.019,8332,3.10.4
+C++,0.55,0.072,0.478,67572,11.2.0
+Javascript,0.15,0.102,0.048,36232,17.9.0
+Typescript,0.12,0.102,0.018,35564,1.20.5
+Java,0.88,0.085,0.795,86032,18
+C#,1.97,0.09,1.88,130808,6.0.2
+Lua,0.4,0.396,0.004,3700,5.4
+Total (7),5.839,2.538,3.242,368240,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.1,0.008,0.092,65760,3.8.13
+C++,0.69,0.0,0.69,86240,11.2.0
+Javascript,0.05,0.008,0.042,36604,17.9.0
+Typescript,0.02,0.005,0.015,32652,1.20.5
+Java,0.81,0.01,0.8,86156,18
+C#,1.82,0.011,1.809,140456,6.0.2
+Lua,0.0,0.002,-0.002,3656,5.4
+Total (7),3.564,0.044,3.446,451524,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,2.26,2.223,0.037,8560,3.10.4
+C++,0.99,0.124,0.866,67524,11.2.0
+Javascript,0.19,0.112,0.078,36516,17.9.0
+Typescript,0.26,0.223,0.037,36144,1.20.5
+Java,1.7,0.106,1.594,85000,18
+C#,2.7,0.092,2.608,144856,6.0.2
+Lua,0.84,0.0,0.84,3632,5.4
+Total (7),2.735,2.881,6.059,382232,####
+
+Language,Total time (s),Execution time (s),Compilation / Interpretation time (s),Peak Memory usage (kB),Version
+Python,0.11,0.008,0.102,65952,3.8.13
+C++,0.86,0.0,0.86,86288,11.2.0
+Javascript,0.11,0.026,0.084,36632,17.9.0
+Typescript,0.06,0.006,0.054,32048,1.20.5
+Java,1.22,0.011,1.209,81452,18
+C#,2.14,0.011,2.129,132128,6.0.2
+Lua,0.03,0.0,0.03,3548,5.4
+Total (7),2.168,0.063,4.467,438048,####
+

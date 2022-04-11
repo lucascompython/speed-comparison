@@ -27,6 +27,7 @@ SLOW_LANGUAGES = {
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
     "Java": "javac main.java && java main",
     "C#": "dotnet run",
+    "Lua": "lua main.lua",
 }
 
 
@@ -37,6 +38,7 @@ FAST_LANGUAGES = {
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
     "Java": "javac main.java && java main",
     "C#": "dotnet run",
+    "Lua": "lua main.lua",
 }
 
 
@@ -160,6 +162,9 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd=path)
                 f.seek(0)
                 output = f.read().decode("utf-8").split()
+
+            if language == "lua":
+                del output[0]
             if DOCKER:
                 if language == "typescript":
                     del output[0]; del output[0]
@@ -188,6 +193,9 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             f.close()
             #output = output.decode("utf-8").split()
             if error: print(Fore.RED + error + Fore.RESET); break
+            language = list(languages.keys())[index]
+            if language == "lua":
+                del output[0]
 
             if DOCKER:
                 if language == "typescript":
@@ -198,7 +206,7 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             output[2] = float(output[2]) - float(output[1])
             output.append(total_time)
             #set the results into the corresponding dict
-            exec(f"{mode.upper()}_LANGUAGES_RESULTS[list(languages.keys())[index]] = output")
+            exec(f"{mode.upper()}_LANGUAGES_RESULTS[language] = output")
 
     return_times = {}
     #normal
