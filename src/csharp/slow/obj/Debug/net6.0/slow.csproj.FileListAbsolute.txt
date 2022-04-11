@@ -1,0 +1,15 @@
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/slow
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/slow.deps.json
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/slow.runtimeconfig.json
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/slow.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/ref/slow.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/bin/Debug/net6.0/slow.pdb
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.csproj.AssemblyReference.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.GeneratedMSBuildEditorConfig.editorconfig
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.AssemblyInfoInputs.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.AssemblyInfo.cs
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.csproj.CoreCompileInputs.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/ref/slow.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.pdb
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/slow/obj/Debug/net6.0/slow.genruntimeconfig.cache

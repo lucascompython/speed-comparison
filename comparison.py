@@ -22,6 +22,7 @@ SLOW_LANGUAGES = {
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
     "Java": "javac main.java && java main",
+    "C#": "dotnet run",
 }
 
 
