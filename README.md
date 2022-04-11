@@ -119,6 +119,7 @@ You are also more than welcome to contribute and help me.
 - It also has two modes, one for running native and other for running inside a docker container.
 - Various ways of comparing the languages.
 - Can choose to run in sequence or in parallel.
+- Saves results in various formats.
 <!---- Install all the requirements by itself.
 -->
 

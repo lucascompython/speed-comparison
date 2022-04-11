@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
+#TODO optimize imports
 import os, sys, argparse
 from time import time
 from subprocess import check_call, STDOUT, Popen, PIPE
 from tempfile import NamedTemporaryFile
-import re, json, yaml, toml, configparser, xml
+import re, json, yaml, toml, xml, configparser
 
 
 
@@ -70,6 +71,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "JavaScript"
             case "Ts" | "Deno":
                 return "TypeScript"
+            case "Py" | "Pypy":
+                return "Python"
             case _:
                 return single_name
 
@@ -93,8 +96,11 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("csharp")
                 case "c++":
                     new_languages.append("cpp")
+                case "py":
+                    new_languages.append("python")
                 case _:
                     new_languages.append(language.lower())
+
 
 
     #normal to abbreviation
@@ -105,6 +111,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("c#")
                 case "cpp":
                     new_languages.append("c++")
+                case "py":
+                    new_languages.append("python")
                 case _:
                     new_languages.append(language.lower())
 
@@ -240,17 +248,38 @@ def arg_parser() -> argparse.Namespace:
     return args
 
 def save_results(table: PrettyTable) -> None:
+
+
     #regex to filter out all the ansi escape sequences
-    regex = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
+    ansi_regex = r'\x1b(' \
+                r'(\[\??\d+[hl])|' \
+                r'([=<>a-kzNM78])|' \
+                r'([\(\)][a-b0-2])|' \
+                r'(\[\d{0,2}[ma-dgkjqi])|' \
+                r'(\[\d+;\d+[hfy]?)|' \
+                r'(\[;?[hf])|' \
+                r'(#[3-68])|' \
+                r'([01356]n)|' \
+                r'(O[mlnp-z]?)|' \
+                r'(/Z)|' \
+                r'(\d+)|' \
+                r'(\[\?\d;\d0c)|' \
+                r'(\d;\dR))'
+    ansi_escape = re.compile(ansi_regex, flags=re.IGNORECASE)
+
     #SAVE to csv  
-    csv_string = regex.sub("", table.get_csv_string())
+    csv_string = ansi_escape.sub("", table.get_csv_string())
     with open("./results/results.csv", "a") as outcsv:
         outcsv.write(csv_string + "\n")
 
-    json_string = table.get_json_string()
-    print(type(json_string))
+
+
+        
+    results_json = []
+    results_json.append(SLOW_LANGUAGES_RESULTS)
+    results_json.append(FAST_LANGUAGES_RESULTS)
     with open("./results/results.json", "w") as outjson:
-        json.dump(json_string, outjson, indent=4)
+        json.dump(results_json, outjson, indent=4)
 
 
 
@@ -368,6 +397,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             #save graphs
             #plt.savefig(fname="./results/graphs.png")
     print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + " seconds.")
+    print("\nResults saved in ./results/*")
 
 #TODO maybe add a while loop for wrong inputs
 def menu(nogui: bool) -> None:
