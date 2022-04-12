@@ -307,13 +307,13 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
 
 
-        total_time_language = list(map(lambda x: round(x[:][-1], 3), list(languages_array.values())))
+        total_time_language = list(map(lambda x: round(x[:][-1], 4), list(languages_array.values())))
         y.append(total_time_language)   
 
-        execution_time_language = list(map(lambda x: round(float(x[:][1]), 3), list(languages_array.values()))) 
+        execution_time_language = list(map(lambda x: round(float(x[:][1]), 4), list(languages_array.values()))) 
         y.append(execution_time_language)   
 
-        compilation_time_language = list(map(lambda x: round(float(x[:][2]), 3), list(languages_array.values())))
+        compilation_time_language = list(map(lambda x: round(float(x[:][2]), 4), list(languages_array.values())))
         y.append(compilation_time_language)   
 
         memory_language = list(map(lambda x: int(x[:][4]), list(languages_array.values())))
@@ -364,18 +364,18 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             
             my_table.add_row([
                 language,
-                round(float(output[-1]), 3),#total time
-                round(float(output[1]), 3), #execution time
-                round(float(output[2]), 3), #compilation time
+                round(float(output[-1]), 4),#total time
+                round(float(output[1]), 4), #execution time
+                round(float(output[2]), 4), #compilation time
                 output[4], #memory usage
                 output[0]  #version
             ])
         
         my_table.add_row([
             Fore.RED + f"Total ({len(results_list)})" + Fore.RESET, #total languages
-            Fore.GREEN + str(round(total_times, 3)) + Fore.RESET, #sum of all total times 
-            Fore.BLUE + str(round(total_execution_time, 3)) + Fore.RESET, #sum of all execution times
-            Fore.CYAN + str(round(total_compilation_time, 3)) + Fore.RESET, #sum of all compilation times
+            Fore.GREEN + str(round(total_times, 4)) + Fore.RESET, #sum of all total times 
+            Fore.BLUE + str(round(total_execution_time, 4)) + Fore.RESET, #sum of all execution times
+            Fore.CYAN + str(round(total_compilation_time, 4)) + Fore.RESET, #sum of all compilation times
             Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
         ])
