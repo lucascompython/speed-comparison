@@ -29,6 +29,7 @@ SLOW_LANGUAGES = {
     "C#": "dotnet run",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
+    "Ruby": "ruby main.rb",
 }
 
 
@@ -41,6 +42,7 @@ FAST_LANGUAGES = {
     "C#": "dotnet run",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
+    "Ruby": "ruby main.rb",
 }
 
 
