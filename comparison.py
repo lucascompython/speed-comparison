@@ -321,17 +321,16 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         memory_language = list(map(lambda x: int(x[:][4]), list(languages_array.values())))
         y.append(memory_language)   
         for index, _y in enumerate(y):
-            xlabel = xlabels[index]
             ylabel = ylabels[index]
             title = titles[index]
             i = index; i += 1
             
             plt.subplot(2, 2, i)
             plt.bar(x, _y)
-            plt.xlabel(xlabel)
+            plt.xlabel(xlabels)
             plt.ylabel(ylabel)
             plt.title(title)
-            plt.savefig(fname=f"./results/graphs{mode}.png")
+            plt.savefig(fname=f"./results/graphs_{mode}.png")
             plt.grid()
     
 
