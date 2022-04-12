@@ -10,5 +10,5 @@ mkdir ./src/$language
 mkdir ./src/$language/slow
 mkdir ./src/$language/fast
 
-New-Item ./src/$language/slow/$language.$extension
-New-Item ./src/$language/fast/$language.$extension
+New-Item ./src/$language/slow/main.$extension
+New-Item ./src/$language/fast/main.$extension
