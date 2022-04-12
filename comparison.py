@@ -28,6 +28,7 @@ SLOW_LANGUAGES = {
     "Java": "javac main.java && java main",
     "C#": "dotnet run",
     "Lua": "lua main.lua",
+    "PHP": "php main.php",
 }
 
 
@@ -39,6 +40,7 @@ FAST_LANGUAGES = {
     "Java": "javac main.java && java main",
     "C#": "dotnet run",
     "Lua": "lua main.lua",
+    "PHP": "php main.php",
 }
 
 

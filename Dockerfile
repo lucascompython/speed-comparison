@@ -2,7 +2,7 @@ FROM archlinux
 
 USER root
 
-RUN pacman --noconfirm -Sy python3 python-pip nodejs deno gcc jdk-openjdk pypy3 dotnet-sdk lua time
+RUN pacman --noconfirm -Sy python3 python-pip nodejs deno gcc jdk-openjdk pypy3 dotnet-sdk lua php time
 
 COPY requirements.txt /tmp/requirements.txt 
 RUN pip3 install -r /tmp/requirements.txt

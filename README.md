@@ -101,6 +101,7 @@ You are also more than welcome to contribute and help me.
 - [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled, VM
 - [Lua](https://www.lua.org) - interpreted, JIT
+- [PHP](https://www.php.net) - interpreted, JIT
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
@@ -173,6 +174,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add an option to run natively 
 - [X] Add C#
 - [X] Add Lua
+- [X] Add Php
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add Terminal graphs
@@ -187,7 +189,6 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Powershell
 - [ ] Add Nix
 - [ ] Add V
-- [ ] Add Php
 - [ ] Add R
 - [ ] Add R plots instead of MatPlotLib
 - [ ] Add Julia
