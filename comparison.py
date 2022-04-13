@@ -30,6 +30,7 @@ SLOW_LANGUAGES = {
     "Lua": "lua main.lua",
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",
+    "Go": "go run main.go",
 }
 
 
@@ -43,6 +44,7 @@ FAST_LANGUAGES = {
     "Lua": "lua main.lua",
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",
+    "Go": "go build -o main main.go && ./main",
 }
 
 
@@ -79,6 +81,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "TypeScript"
             case "Py" | "Pypy":
                 return "Python"
+            case "Go":
+                return "Golang"
             case _:
                 return single_name
 
@@ -104,6 +108,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("cpp")
                 case "py":
                     new_languages.append("python")
+                case "go":
+                    new_languages.append("golang")
                 case _:
                     new_languages.append(language.lower())
 
@@ -119,6 +125,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("c++")
                 case "py":
                     new_languages.append("python")
+                case "golang":
+                    new_languages.append("go")
                 case _:
                     new_languages.append(language.lower())
 
