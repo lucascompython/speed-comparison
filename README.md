@@ -179,9 +179,9 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Ruby
 - [X] Add Golang
 - [X] Add Rust
+- [X] Add Terminal graphs
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
-- [ ] Add Terminal graphs
 - [ ] Add Kotlin
 - [ ] Add Swift
 - [ ] Add F#

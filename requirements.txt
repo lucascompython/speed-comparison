@@ -1,3 +1,4 @@
 colorama==0.4.4
 matplotlib==3.5.1
 prettytable==3.1.1
+plotext==4.2.0

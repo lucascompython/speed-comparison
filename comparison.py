@@ -11,6 +11,7 @@ import re, json, yaml, toml, xml, configparser
 
 
 from prettytable import PrettyTable
+import plotext
 from colorama import Fore, Style
 import matplotlib.pyplot as plt
 
@@ -369,7 +370,6 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             languages_array (list): The languages array.
             mode (str): The mode either slow or fast.
         """
-
         x = name_to_abbr(False, list(languages_array.keys()), True)
         y = []
         xlabels = "Languages"
@@ -390,19 +390,45 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         memory_language = list(map(lambda x: int(x[:][4]), list(languages_array.values())))
         y.append(memory_language)   
-        for index, _y in enumerate(y):
-            ylabel = ylabels[index]
-            title = titles[index]
-            i = index; i += 1
-            
-            plt.subplot(2, 2, i)
-            plt.bar(x, _y)
-            plt.xlabel(xlabels)
-            plt.ylabel(ylabel)
-            plt.title(title)
-            plt.savefig(fname=f"./results/graphs_{mode}.png")
-            plt.grid()
-    
+        
+
+
+        if not nogui:
+            for index, _y in enumerate(y):
+                ylabel = ylabels[index]
+                title = titles[index]
+                i = index; i += 1
+                
+                plt.subplot(2, 2, i)
+                plt.bar(x, _y)
+                plt.xlabel(xlabels)
+                plt.ylabel(ylabel)
+                plt.title(title)
+                plt.savefig(fname=f"./results/graphs_{mode}.png")
+                plt.grid()
+        else:
+            plotext.subplots(2, 2)
+            for index, _y in enumerate(y):
+                ylabel = ylabels[index]
+                title = titles[index]
+                i = index; i += 1
+                match i:
+                    case 1:
+                        plotext.subplot(1, 1)
+                    case 2:
+                        plotext.subplot(1, 2)
+                    case 3:
+                        plotext.subplot(2, 1)
+                    case 4:
+                        plotext.subplot(2, 2)
+
+                plotext.bar(x, _y)
+                plotext.xlabel(xlabels)
+                plotext.ylabel(ylabel)
+                plotext.title(title)
+                plotext.grid()
+            plotext.savefig(f"./results/graphs_{mode}.png")
+
 
     def table(results_list: list, total_times: float) -> None:
         """Helper function that creates the tables.
@@ -463,26 +489,31 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
     if MODE in ["slow", "both"]:
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
-        if not nogui:
 
-            graph(SLOW_LANGUAGES_RESULTS, "slow")
+        graph(SLOW_LANGUAGES_RESULTS, "slow")
+        if not nogui:
             plt.suptitle("Graphs")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
+        else:
+            plotext.show()
 
-            #save graphs
-            #plt.savefig(fname="./results/graphs.png")
+        #save graphs
+        #plt.savefig(fname="./results/graphs.png")
 
     if MODE in ["fast", "both"]:
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
+        graph(FAST_LANGUAGES_RESULTS, "fast")
         if not nogui:
-            graph(FAST_LANGUAGES_RESULTS, "fast")
             plt.suptitle("Graphs")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
-            #save graphs
-            #plt.savefig(fname="./results/graphs.png")
+        else:
+            plotext.show()
+
+        #save graphs
+        #plt.savefig(fname="./results/graphs.png")
     print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + " seconds.")
     print("\nResults saved in ./results/*")
 
@@ -603,7 +634,19 @@ def menu(nogui: bool) -> None:
 
 
             elif options_input in ["graph", "graphs", "g"]:
-                pass
+                GRAPH_MODE = "GUI" if nogui == False else "Terminal"
+                print("Currently the graph mode is set to: " + Fore.LIGHTMAGENTA_EX + GRAPH_MODE + Fore.RESET)
+                print("Type the graph mode you want to change to (GUI or Terminal)!")
+                graph_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.GREEN}graphs{Fore.RESET}> ")
+                if graph_input.lower() in ["gui", "graphical", "graph"]:
+                    nogui = False
+                    print(f"{Fore.GREEN}Graph mode set to {graph_input.capitalize()}." + Fore.RESET)
+                elif graph_input.lower() in ["terminal", "nogui", "tui"]:
+                    nogui = True
+                    print(f"{Fore.GREEN}Graph mode set to {graph_input.capitalize()}." + Fore.RESET)
+                else:
+                    print(f"{Fore.LIGHTRED_EX}Invalid graph mode." + Fore.RESET)
+                
 
 
         elif start in ["info", "information", "details"]:
