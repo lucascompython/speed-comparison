@@ -69,7 +69,21 @@ def change_round() -> None:
 
 
 #possibly remove most of this cauz it's kinda not needed
-def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[str] = SLOW_CHANGED_LANGUAGES, capitalize: bool = False, single: bool = False, single_name: str = "") -> dict[str, str] | list[str]:
+def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[str] = SLOW_CHANGED_LANGUAGES, capitalize: bool = False, single: bool = False, single_name: str = None) -> dict[str, str] | list[str]:
+    """Helper function to convert language names to their abbreviation or vice-versa.
+
+    Args:
+        reverse (bool, optional): If wanted reverse. Defaults to True.
+        entry_languages (dict[str, str] | list[str], optional): The list or dict of the languages. Defaults to SLOW_CHANGED_LANGUAGES.
+        capitalize (bool, optional): If you want to capitalize. Defaults to False.
+        single (bool, optional): Only return the name. Defaults to False.
+        single_name (str, optional): The single name. Defaults to "".
+
+    Returns:
+        dict[str, str] | list[str]: Return dict if dict was given, else list.
+    """
+
+
 
     if single:
         match single_name:
@@ -166,8 +180,19 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
 #TODO maybe put the check_call in a subfunction
 def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
+    """Function that calls the languages and captures the output(version and execution time) and gets the compile time with the GNU Time command.
+
+    Returns:
+        dict[str: float]: Return total time taken by languages.
+    """
     DOCKER = os.environ.get("DOCKER", False)
     def sync_call(languages: dict[str, str], mode: str) -> None:
+        """Helper function to call the languages sequentially.
+
+        Args:
+            languages (dict[str, str]): The dict of languages to be benchmarked.
+            mode (str): The mode either slow or fast.
+        """
         for language, command in languages.items():
             print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
             path = os.path.join("./src/", language, mode)
@@ -193,6 +218,12 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
 
 
     def async_call(languages: dict[str, str], mode: str) -> None:
+        """Helper function that calls the languages in parallel.
+
+        Args:
+            languages (dict[str, str]): The dict of languages to be benchmarked.
+            mode (str): The mode either slow or fast.
+        """
         processes = []
         for language, command in languages.items():
             print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
@@ -264,12 +295,15 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
 
 
 def clear() -> None:
+    """Helper function to clear the terminal.
+    """
     if os.name == "nt":
         os.system("cls")
     else:
         os.system("clear")
 
 def arg_parser() -> argparse.Namespace:
+    
     parser = argparse.ArgumentParser(description="Calculate the prime numbers between any given range.")
     parser.add_argument("-c", "--custom", help="Enter a custom rounds value.", type=int)
     parser.add_argument("-n", "--nogui", help="Use this if you don't want to use graphical graphs.", action="store_true")
@@ -277,6 +311,11 @@ def arg_parser() -> argparse.Namespace:
     return args
 
 def save_results(table: PrettyTable) -> None:
+    """Function that saves the results into multiple formats.
+
+    Args:
+        table (PrettyTable): The table to be saved.
+    """
 
 
     #regex to filter out all the ansi escape sequences
@@ -314,8 +353,22 @@ def save_results(table: PrettyTable) -> None:
 
 
 def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float]) -> None:
+    """Function that creates the tables and graphs.
+
+    Args:
+        total_time (float): The total time of each language.
+        nogui (bool): If the user wants gui or not.
+        MODE (str): The mode either slow or fast.
+        times (list[float]): The total time.
+    """
 
     def graph(languages_array: list, mode: str) -> None:
+        """Helper function that creates the graphs.
+
+        Args:
+            languages_array (list): The languages array.
+            mode (str): The mode either slow or fast.
+        """
 
         x = name_to_abbr(False, list(languages_array.keys()), True)
         y = []
@@ -352,6 +405,12 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
     
 
     def table(results_list: list, total_times: float) -> None:
+        """Helper function that creates the tables.
+
+        Args:
+            results_list (list): The results list.
+            total_times (float): The total times for each language.
+        """
         #TODO CENTER TABLE
         terminal_with = os.get_terminal_size().columns
         
@@ -429,6 +488,14 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
 #TODO maybe add a while loop for wrong inputs
 def menu(nogui: bool) -> None:
+    """This function creates the main menu.
+
+    Args:
+        nogui (bool): If the user wants gui or not.
+
+    Raises:
+        KeyboardInterrupt: Bye bye.
+    """
     global ROUNDS 
     MODE = "both"
     PROCESS_MODE = "sync"
@@ -566,6 +633,8 @@ def menu(nogui: bool) -> None:
 
 
 def main() -> None:
+    """Main function of the program that calls all others.
+    """
     global ROUNDS
     args = arg_parser()
     if args.custom:
