@@ -31,6 +31,7 @@ SLOW_LANGUAGES = {
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",
     "Go": "go run main.go",
+    "Rust": "rustc main.rs && ./main",
 }
 
 
@@ -45,6 +46,7 @@ FAST_LANGUAGES = {
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",
     "Go": "go build -o main main.go && ./main",
+    "Rust": "cargo build --release && ./target/release/main",
 }
 
 
@@ -174,7 +176,9 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 check_call(f'/usr/bin/time -f " %e %P %M" sh -c  "{command}" ', shell=True, stdout=f, stderr=STDOUT, cwd=path)
                 f.seek(0)
                 output = f.read().decode("utf-8").split()
-
+            #remove the cargo confirmation
+            if language == "rust" and mode == "fast":
+                output = output[6:]
             if language == "lua":
                 del output[0]
             if DOCKER:
@@ -206,6 +210,11 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             #output = output.decode("utf-8").split()
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
+
+            #remove the cargo confirmation
+            if language == "rust" and mode == "fast":
+                output = output[6:]
+
             if language == "lua":
                 del output[0]
 

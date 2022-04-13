@@ -104,10 +104,10 @@ You are also more than welcome to contribute and help me.
 - [PHP](https://www.php.net) - interpreted, JIT
 - [Ruby](www.ruby-lang.org) - interpreted
 - [Go](https://golang.org/) - compiled
+- [Rust](https://www.rust-lang.org/) - compiled
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
-- [Rust](https://www.rust-lang.org/) - compiled
 --->
 
 
@@ -178,10 +178,10 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Php
 - [X] Add Ruby
 - [X] Add Golang
+- [X] Add Rust
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add Terminal graphs
-- [ ] Add Rust
 - [ ] Add Kotlin
 - [ ] Add Swift
 - [ ] Add F#
