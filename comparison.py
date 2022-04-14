@@ -42,7 +42,7 @@ FAST_LANGUAGES = {
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
     "Java": "javac main.java && java main",
-    "C#": "dotnet run",
+    f"C#": "dotnet run -c Release",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",

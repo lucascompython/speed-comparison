@@ -1,0 +1,15 @@
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/fast
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/fast.deps.json
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/fast.runtimeconfig.json
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/fast.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/ref/fast.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/bin/Release/net6.0/fast.pdb
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.csproj.AssemblyReference.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.GeneratedMSBuildEditorConfig.editorconfig
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.AssemblyInfoInputs.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.AssemblyInfo.cs
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.csproj.CoreCompileInputs.cache
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/ref/fast.dll
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.pdb
+/home/lucascomdrip/Desktop/speed-comparison/src/csharp/fast/obj/Release/net6.0/fast.genruntimeconfig.cache
