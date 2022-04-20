@@ -2,7 +2,7 @@
 
 #TODO optimize imports
 import os, sys, argparse
-from time import time
+from time import perf_counter
 from subprocess import check_call, STDOUT, Popen, PIPE
 from tempfile import NamedTemporaryFile
 import re, json
@@ -42,7 +42,7 @@ FAST_LANGUAGES = {
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
     "Java": "javac main.java && java main",
-    f"C#": "dotnet run -c Release",
+    "C#": "dotnet run -c Release",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
     "Ruby": "ruby main.rb",
@@ -265,25 +265,25 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
     #normal
     if MODE in ["slow", "both"]:
         languages = name_to_abbr()
-        start = time()
+        start = perf_counter()
         if PROCESS_MODE == "sync":
             sync_call(languages, "slow")
         else:
             async_call(languages, "slow")
 
-        end = time() - start
+        end = perf_counter() - start
         return_times["slow"] = end
 
 
     if MODE in ["fast", "both"]:
         languages = name_to_abbr(entry_languages=FAST_CHANGED_LANGUAGES)
-        start = time()
+        start = perf_counter()
         if PROCESS_MODE == "sync":
             sync_call(languages, "fast")
         else:
             async_call(languages, "fast")
 
-        end = time() - start
+        end = perf_counter() - start
         return_times["fast"] = end
 
     return return_times
@@ -650,7 +650,7 @@ def menu(nogui: bool) -> None:
 
 
         elif start in ["info", "information", "details"]:
-            print("INFORMATIONS")
+            print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}")
 
 
 
@@ -666,9 +666,9 @@ def menu(nogui: bool) -> None:
 
 
     #start actual benchmark
-    start_benchmark = time()
+    start_benchmark = perf_counter()
     times = call_languages(MODE, PROCESS_MODE)
-    total_benchmark = time() - start_benchmark
+    total_benchmark = perf_counter() - start_benchmark
     table_and_graph(total_benchmark, nogui, MODE, times)
 
 
