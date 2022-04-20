@@ -33,6 +33,7 @@ SLOW_LANGUAGES = {
     "Ruby": "ruby main.rb",
     "Go": "go run main.go",
     "Rust": "rustc main.rs && ./main",
+    "Powershell": "pwsh main.ps1",
 }
 
 
@@ -48,6 +49,7 @@ FAST_LANGUAGES = {
     "Ruby": "ruby main.rb",
     "Go": "go build -o main main.go && ./main",
     "Rust": "cargo build --release && ./target/release/main",
+    "Powershell": "pwsh main.ps1",
 }
 
 
@@ -100,6 +102,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                 return "Python"
             case "Go":
                 return "Golang"
+            case "Pwsh":
+                return "Powershell"
             case _:
                 return single_name
 
@@ -127,6 +131,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("python")
                 case "go":
                     new_languages.append("golang")
+                case "pwsh":
+                    new_languages.append("powershell")
                 case _:
                     new_languages.append(language.lower())
 
@@ -144,6 +150,8 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
                     new_languages.append("python")
                 case "golang":
                     new_languages.append("go")
+                case "powershell":
+                    new_languages.append("pwsh")
                 case _:
                     new_languages.append(language.lower())
 

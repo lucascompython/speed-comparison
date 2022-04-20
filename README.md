@@ -105,6 +105,7 @@ You are also more than welcome to contribute and help me.
 - [Ruby](www.ruby-lang.org) - interpreted
 - [Go](https://golang.org/) - compiled
 - [Rust](https://www.rust-lang.org/) - compiled
+- [Powershell](https://docs.microsoft.com/en-us/powershell/) - interpreted
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
@@ -199,6 +200,12 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add Nim
 - [ ] And many others...
 
+
+
+## Know Bugs (Because im too lazy to fix them...)
+
+* For the first time running the comparison you might need to to run it twice because deno shows some extra information at the first compilation of a file.
+* Docker doesn't support graphical graphs for now. 
 
 <details>
   <summary>Super top Secret :shushing_face:</summary>
