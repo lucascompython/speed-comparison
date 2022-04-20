@@ -93,6 +93,7 @@ You are also more than welcome to contribute and help me.
 
 ## Languages used in this comparison
 
+In total there are available 12 languages in this comparison which are:
 
 - [Python](https://www.python.org/) - interpreted
 - [C++](https://isocpp.org/) - compiled
