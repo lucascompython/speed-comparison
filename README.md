@@ -14,8 +14,8 @@ All languages use the same algorithms.
 
 <div align="center">
 
-![plot](https://cdn.discordapp.com/attachments/795277227423301643/963231527649558578/unknown.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/795277227423301643/963231677004517406/unknown.png "Table") 
+![plot](https://cdn.discordapp.com/attachments/795277227423301643/966451105896730684/unknown.png "Speed comparison of programming languages")
+![table](https://cdn.discordapp.com/attachments/795277227423301643/966451265322233947/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 <p>
