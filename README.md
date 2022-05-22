@@ -1,6 +1,6 @@
 # Speed comparison of programming languages 
 
-This project compares the speed of different programming/scripting languages.
+This project compares the speed and memory of different programming/scripting languages.
 
 It calculates prime and composite numbers with a very basic algorithm and an more advanced one, from any given interval to do this comparisom.<br>
 All languages use the same algorithms.
@@ -161,7 +161,7 @@ Yes, I think...
 
 > Are the compile/interpret times included in the comparison?
 
-Yes, they are measured by the GNU time command!
+Yes, it's measured by the GNU time command!
 
 > Why do you also count reading a file and printing the ouput?
 
@@ -182,6 +182,11 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Golang
 - [X] Add Rust
 - [X] Add Terminal graphs
+- [X] Add Powershell
+- [ ] Add Bash
+- [ ] Add Zig
+- [ ] Add Julia
+- [ ] Add V
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add Kotlin
@@ -189,13 +194,9 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add F#
 - [ ] Add Haskell
 - [ ] Add Scala
-- [ ] Add Bash
-- [ ] Add Powershell
 - [ ] Add Nix
-- [ ] Add V
 - [ ] Add R
 - [ ] Add R plots instead of MatPlotLib
-- [ ] Add Julia
 - [ ] Add Elixir
 - [ ] Add Raku (Perl6)
 - [ ] Add Nim
@@ -203,7 +204,7 @@ Because I think this is a more realistic scenario to compare speeds.
 
 
 
-## Know Bugs (Because im too lazy to fix them...)
+## Known Bugs (Because im too lazy to fix them...)
 
 * For the first time running the comparison you might need to to run it twice because deno shows some extra information at the first compilation of a file.
 * Docker doesn't support graphical graphs for now. 
