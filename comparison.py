@@ -560,6 +560,8 @@ def menu(nogui: bool) -> None:
                 rounds_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.CYAN}rounds{Fore.RESET}> ")
                 if rounds_input.isdigit():
                     ROUNDS = int(rounds_input)
+                    if ROUNDS >= 10000:
+                        print(Fore.YELLOW + "WARNING: The rounds are set to a high value, this might take a while!" + Fore.RESET)
                     print(f"{Fore.GREEN}Rounds set to {ROUNDS}." + Fore.RESET)
                 else:
                     print(f"{Fore.LIGHTRED_EX}Invalid rounds value." + Fore.RESET) 
