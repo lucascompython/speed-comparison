@@ -28,7 +28,6 @@ for ($k = 2; $k -le $rounds; $k++) {
 }
 $composites = $rounds - $primes
 
-#Write-Host "Primes: $primes"
 
 $end = $start.ElapsedMilliseconds / 1000
 $version = "{0}.{1}.{2}" -f $PSVersionTable.PSVersion.Major, $PSVersionTable.PSVersion.Minor, $PSVersionTable.PSVersion.Patch
