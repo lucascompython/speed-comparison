@@ -662,7 +662,7 @@ def menu(nogui: bool) -> None:
 
 
         elif start in ["info", "information", "details"]:
-            print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}")
+            print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}\nIf your having difficulties check Known Bugs in README.md.")
 
 
 

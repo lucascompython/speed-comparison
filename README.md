@@ -89,7 +89,8 @@ I'm no expert in all these languages, so take my results with a grain of salt.<b
 The speed of the language does not determine its quality.
 <!-- Also the findings just show how good the languages can handle floating point operations, which is only one aspect of a programming language. -->
 
-You are also more than welcome to contribute and help me.
+You are also more than welcome to contribute and help me.<br>
+See [Known Bugs](#known-bugs-because-im-too-lazy-to-fix-them).
 
 ## Languages used in this comparison
 
