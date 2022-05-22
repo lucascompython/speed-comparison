@@ -312,7 +312,7 @@ def clear() -> None:
         os.system("clear")
 
 def arg_parser() -> argparse.Namespace:
-    
+    #TODO add the ability to change the mode
     parser = argparse.ArgumentParser(description="Calculate the prime numbers between any given range.")
     parser.add_argument("-c", "--custom", help="Enter a custom rounds value.", type=int)
     parser.add_argument("-n", "--nogui", help="Use this if you don't want to use graphical graphs.", action="store_true")
@@ -495,6 +495,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         print(my_table)
 
     if MODE in ["slow", "both"]:
+        print(Fore.LIGHTGREEN_EX + "\n\nSlow mode" + Fore.RESET)
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
 
@@ -510,6 +511,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         #plt.savefig(fname="./results/graphs.png")
 
     if MODE in ["fast", "both"]:
+        print(Fore.LIGHTGREEN_EX + "Fast mode" + Fore.RESET)
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
         graph(FAST_LANGUAGES_RESULTS, "fast")
@@ -523,7 +525,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         #save graphs
         #plt.savefig(fname="./results/graphs.png")
     print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + " seconds.")
-    print("\nResults saved in ./results/*")
+    print(f"\nResults saved in {Fore.YELLOW}./results/*" + Fore.RESET)
 
 #TODO maybe add a while loop for wrong inputs
 def menu(nogui: bool) -> None:
@@ -543,7 +545,7 @@ def menu(nogui: bool) -> None:
     while (start := start_input.lower()) not in ["start", "play"] :
         if start in ["exit", "quit", "leave"]:
             raise KeyboardInterrupt
-        elif start in ["options", "config"]:
+        elif start in ["options", "config", "settings"]:
             clear()
             print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.MAGENTA + '(P)Rocess' + Fore.RESET}    {Fore.LIGHTYELLOW_EX + '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
             options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
@@ -677,6 +679,7 @@ def menu(nogui: bool) -> None:
     start_benchmark = perf_counter()
     times = call_languages(MODE, PROCESS_MODE)
     total_benchmark = perf_counter() - start_benchmark
+    print(Fore.LIGHTGREEN_EX + "Done!                                                                        " + Fore.RESET)
     table_and_graph(total_benchmark, nogui, MODE, times)
 
 
