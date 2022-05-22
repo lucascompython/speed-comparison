@@ -122,7 +122,6 @@ In total there are available 12 languages in this comparison which are:
 - All languages will read from a txt file.
 - The program will get and display the memory usage.
 - It also has two modes, one for running native and other for running inside a docker container.
-- Various ways of comparing the languages.
 - Can choose to run in sequence or in parallel.
 - Saves results in various formats.
 <!---- Install all the requirements by itself.
