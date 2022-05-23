@@ -94,7 +94,7 @@ See [Known Bugs](#known-bugs-because-im-too-lazy-to-fix-them).
 
 ## Languages used in this comparison
 
-In total there are available 12 languages in this comparison which are:
+In total there are available 13 languages in this comparison which are:
 
 - [Python](https://www.python.org/) - interpreted
 - [C++](https://isocpp.org/) - compiled
