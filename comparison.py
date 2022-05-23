@@ -381,6 +381,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         MODE (str): The mode either slow or fast.
         times (list[float]): The total time.
     """
+    total_cpu_time = []
 
     def graph(languages_array: list, mode: str) -> None:
         """Helper function that creates the graphs.
@@ -457,7 +458,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
             total_times (float): The total times for each language.
         """
         #TODO CENTER TABLE
-        terminal_with = os.get_terminal_size().columns
+        #terminal_with = os.get_terminal_size().columns
         
         my_table = PrettyTable(
             [
@@ -493,14 +494,18 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
                 output[0]  #version
             ])
         
+        total_total_time = total_execution_time + total_compilation_time
+        total_cpu_time.append(total_total_time)
+
         my_table.add_row([
             Fore.RED + f"Total ({len(results_list)})" + Fore.RESET, #total languages
-            Fore.GREEN + str(round(total_times, 4)) + Fore.RESET, #sum of all total times 
+            Fore.GREEN + str(round(total_total_time, 4)) + Fore.RESET, #sum of all total times 
             Fore.BLUE + str(round(total_execution_time, 4)) + Fore.RESET, #sum of all execution times
             Fore.CYAN + str(round(total_compilation_time, 4)) + Fore.RESET, #sum of all compilation times
             Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
         ])
+
         save_results(my_table)
         #print(my_tablet_csv_string())
         print(my_table)
@@ -535,7 +540,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         #save graphs
         #plt.savefig(fname="./results/graphs.png")
-    print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + " seconds.")
+    print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + f" seconds in {Style.BRIGHT}REAL time{Style.RESET_ALL} and in {Style.BRIGHT}CPU time{Style.RESET_ALL} it took: {Fore.GREEN}{round(sum(total_cpu_time), 4)}{Fore.RESET}.")
     print(f"\nResults saved in {Fore.YELLOW}./results/*" + Fore.RESET)
 
 #TODO maybe add a while loop for wrong inputs
