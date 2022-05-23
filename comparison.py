@@ -691,7 +691,7 @@ def menu(nogui: bool) -> None:
         #if none of the above
         clear()
     change_round()
-    print(f"This comparison will run to {Fore.RED + str(ROUNDS) + Fore.RESET} in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
+    print(f"This comparison will run up to {Fore.RED + str(ROUNDS) + Fore.RESET} iterations in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
 
 
     #start actual benchmark
