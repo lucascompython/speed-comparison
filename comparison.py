@@ -3,7 +3,7 @@
 #TODO optimize imports
 import os, sys, argparse
 from time import perf_counter
-from subprocess import check_call, STDOUT, Popen, PIPE
+from subprocess import check_call, STDOUT, Popen, PIPE, check_output
 from tempfile import NamedTemporaryFile
 import re, json
 
@@ -34,6 +34,7 @@ SLOW_LANGUAGES = {
     "Go": "go run main.go",
     "Rust": "rustc main.rs && ./main",
     "Powershell": "pwsh main.ps1",
+    "Swift": "swift main.swift",
 }
 
 
@@ -50,6 +51,7 @@ FAST_LANGUAGES = {
     "Go": "go build -o main main.go && ./main",
     "Rust": "cargo build --release && ./target/release/main",
     "Powershell": "pwsh main.ps1",
+    "Swift": "swiftc main.swift -Ounchecked && ./main",
 }
 
 
@@ -211,6 +213,11 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 f.seek(0)
                 output = f.read().decode("utf-8").split()
             #remove the cargo confirmation
+
+            #insert the swift version cauz swift is hard on linux
+            if language == "swift":
+                output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
+
             if language == "rust" and mode == "fast":
                 output = output[6:]
             if language == "lua":
@@ -251,6 +258,10 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
 
+
+            #insert the swift version cauz swift is hard on linux
+            if language == "swift":
+                output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
             #remove the cargo confirmation
             if language == "rust" and mode == "fast":
                 output = output[6:]
@@ -560,7 +571,7 @@ def menu(nogui: bool) -> None:
                 rounds_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.CYAN}rounds{Fore.RESET}> ")
                 if rounds_input.isdigit():
                     ROUNDS = int(rounds_input)
-                    if ROUNDS >= 10000:
+                    if ROUNDS > 10000:
                         print(Fore.YELLOW + "WARNING: The rounds are set to a high value, this might take a while!" + Fore.RESET)
                     print(f"{Fore.GREEN}Rounds set to {ROUNDS}." + Fore.RESET)
                 else:
