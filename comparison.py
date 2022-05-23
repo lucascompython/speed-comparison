@@ -587,7 +587,7 @@ def menu(nogui: bool) -> None:
             elif options_input in ["process", "p", "processess"]:
                 clear()
                 print("The current Processess mode are set to: " + Fore.LIGHTCYAN_EX + PROCESS_MODE.capitalize() + Fore.RESET + ".")
-                print(f"Type the processess mode you want to change to!\nEnter either {Fore.LIGHTGREEN_EX}'sync/sequence'{Fore.RESET} or {Fore.LIGHTGREEN_EX}'async/parallel'{Fore.RESET}")
+                print(f"Type the processess mode you want to change to!\nEnter either {Fore.LIGHTGREEN_EX}'sync/sequence'{Fore.RESET} or {Fore.LIGHTGREEN_EX}'async/parallel'{Fore.RESET}.")
                 process_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.MAGENTA}process{Fore.RESET}> ")
                 if process_input in ["sync", "sequence"]:
                     PROCESS_MODE = "sync"

@@ -101,7 +101,7 @@ In total there are available 12 languages in this comparison which are:
 - [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-402/) using [Node](https://nodejs.org/en/) - interpreted; JIT
 - [TypeScript](https://www.typescriptlang.org) using [Deno](https://deno.land) - interpreted; JIT
 - [Java](http://www.oracle.com/technetwork/java/index.html) - compiled, VM
-- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled, VM
+- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/) - compiled
 - [Lua](https://www.lua.org) - interpreted, JIT
 - [PHP](https://www.php.net) - interpreted, JIT
 - [Ruby](www.ruby-lang.org) - interpreted
