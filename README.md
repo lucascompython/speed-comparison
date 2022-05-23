@@ -14,8 +14,8 @@ All languages use the same algorithms.
 
 <div align="center">
 
-![plot](https://cdn.discordapp.com/attachments/795277227423301643/966451105896730684/unknown.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/795277227423301643/978075897666101279/unknown.png "Table") 
+![plot](https://cdn.discordapp.com/attachments/795277227423301643/978406323182002236/Results.png "Speed comparison of programming languages")
+![table](https://cdn.discordapp.com/attachments/795277227423301643/978405873279975454/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 <p>
@@ -108,6 +108,7 @@ In total there are available 12 languages in this comparison which are:
 - [Go](https://golang.org/) - compiled
 - [Rust](https://www.rust-lang.org/) - compiled
 - [Powershell](https://docs.microsoft.com/en-us/powershell/) - interpreted
+- [Swift](https://www.swift.org) - interpreted / compiled
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
@@ -183,6 +184,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Rust
 - [X] Add Terminal graphs
 - [X] Add Powershell
+- [X] Add Swift
 - [ ] Add Bash
 - [ ] Add Zig
 - [ ] Add Julia
@@ -190,7 +192,6 @@ Because I think this is a more realistic scenario to compare speeds.
 - [ ] Add other methods of comparing E.g: [Leibniz formula for π](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80) to compare the floating point operations
 - [ ] Add full Docker Support
 - [ ] Add Kotlin
-- [ ] Add Swift
 - [ ] Add F#
 - [ ] Add Haskell
 - [ ] Add Scala
