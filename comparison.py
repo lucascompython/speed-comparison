@@ -511,7 +511,8 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         print(my_table)
 
     if MODE in ["slow", "both"]:
-        print(Fore.LIGHTGREEN_EX + "\n\nSlow mode" + Fore.RESET)
+        print("\n")
+        print(f"{Fore.LIGHTGREEN_EX}Slow mode{Fore.RESET}".center(128))
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
 
@@ -527,7 +528,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         #plt.savefig(fname="./results/graphs.png")
 
     if MODE in ["fast", "both"]:
-        print(Fore.LIGHTGREEN_EX + "Fast mode" + Fore.RESET)
+        print(f"{Fore.LIGHTGREEN_EX}Fast mode{Fore.RESET}".center(128))
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
         graph(FAST_LANGUAGES_RESULTS, "fast")
