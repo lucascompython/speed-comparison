@@ -2,3 +2,8 @@
 /src/*.txt
 .vscode
 results/
+results/results.csv
+results/results.json
+src/csharp/fast/obj/Debug/net6.0/fast.assets.cache
+src/csharp/fast/obj/Debug/net6.0/fast.csproj.AssemblyReference.cache
+src/swift/fast/main

@@ -26,7 +26,7 @@ SLOW_LANGUAGES = {
     "C++": "g++ main.cpp -o main && ./main",
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
-    "Java": "javac main.java && java main",
+    "Java": "javac main.java && java -cp ./ main",
     "C#": "dotnet run",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
@@ -43,7 +43,7 @@ FAST_LANGUAGES = {
     "C++": "g++ -O3 -o main main.cpp && ./main",
     "JavaScript": "node main.js",
     "TypeScript": "deno run --allow-read --allow-hrtime main.ts",
-    "Java": "javac main.java && java main",
+    "Java": "javac main.java && java -cp ./ main",
     "C#": "dotnet run -c Release",
     "Lua": "lua main.lua",
     "PHP": "php main.php",
@@ -257,7 +257,7 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             #output = output.decode("utf-8").split()
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
-
+            print(language)
 
             #insert the swift version cauz swift is hard on linux
             if language == "swift":
