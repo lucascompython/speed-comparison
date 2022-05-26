@@ -2,8 +2,8 @@ FROM archlinux
 
 USER root
 
-RUN pacman --noconfirm -Sy yay python3 python-pip nodejs deno gcc jdk-openjdk pypy3 dotnet-sdk lua php ruby go rust time
-RUN yay -S --noconfirm swift-bin powershell-bin
+RUN pacman --noconfirm --needed -Sy yay python3 python-pip nodejs deno gcc jdk-openjdk pypy3 dotnet-sdk lua php ruby go rust dart time
+RUN yay -S --noconfirm swift-bin powershell-bin 
 
 COPY requirements.txt /tmp/requirements.txt 
 RUN pip3 install -r /tmp/requirements.txt
