@@ -15,7 +15,7 @@ All languages use the same algorithms.
 <div align="center">
 
 ![plot](https://cdn.discordapp.com/attachments/795277227423301643/978406323182002236/Results.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/795277227423301643/978417841533501460/unknown.png "Table") 
+![table](https://cdn.discordapp.com/attachments/795277227423301643/979514683348377690/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 <p>
@@ -94,7 +94,7 @@ See [Known Bugs](#known-bugs-because-im-too-lazy-to-fix-them).
 
 ## Languages used in this comparison
 
-In total there are available 13 languages in this comparison which are:
+In total there are available 14 languages in this comparison which are:
 
 - [Python](https://www.python.org/) - interpreted
 - [C++](https://isocpp.org/) - compiled
@@ -109,6 +109,7 @@ In total there are available 13 languages in this comparison which are:
 - [Rust](https://www.rust-lang.org/) - compiled
 - [Powershell](https://docs.microsoft.com/en-us/powershell/) - interpreted
 - [Swift](https://www.swift.org) - interpreted / compiled
+- [Dart](https://dart.dev) - compiler, JIT
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
@@ -185,6 +186,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Terminal graphs
 - [X] Add Powershell
 - [X] Add Swift
+- [X] Add Dart
 - [ ] Add Bash
 - [ ] Add Zig
 - [ ] Add Julia

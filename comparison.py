@@ -29,12 +29,13 @@ SLOW_LANGUAGES = {
     "Java": "javac main.java && java -cp ./ main",
     "C#": "dotnet run",
     "Lua": "lua main.lua",
-    "PHP": "php main.php",
+    "Php": "php main.php",
     "Ruby": "ruby main.rb",
     "Go": "go run main.go",
     "Rust": "rustc main.rs && ./main",
     "Powershell": "pwsh main.ps1",
     "Swift": "swift main.swift",
+    "Dart": "dart run main.dart",
 }
 
 
@@ -46,12 +47,13 @@ FAST_LANGUAGES = {
     "Java": "javac main.java && java -cp ./ main",
     "C#": "dotnet run -c Release",
     "Lua": "lua main.lua",
-    "PHP": "php main.php",
+    "Php": "php main.php",
     "Ruby": "ruby main.rb",
     "Go": "go build -o main main.go && ./main",
     "Rust": "cargo build --release && ./target/release/main",
     "Powershell": "pwsh main.ps1",
     "Swift": "swiftc main.swift -Ounchecked && ./main",
+    "Dart": "dart compile exe main.dart --verbosity warning -o main && ./main",
 }
 
 
@@ -214,6 +216,9 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 output = f.read().decode("utf-8").split()
             #remove the cargo confirmation
 
+
+
+            #SPECIAL CASES
             #insert the swift version cauz swift is hard on linux
             if language == "swift":
                 output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
@@ -222,9 +227,17 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 output = output[6:]
             if language == "lua":
                 del output[0]
+                
+            if language == "dart" and mode == "fast":
+                output = output[2:]
+
             if DOCKER:
                 if language == "typescript":
-                    del output[0]; del output[0]
+                    output = output[2:]
+
+
+
+
             total_time = float(output[2])
             output[2] = float(output[2]) - float(output[1])
             output.append(total_time)
@@ -258,6 +271,9 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
 
+
+
+            ## SPECIAL CASES
             #insert the swift version cauz swift is hard on linux
             if language == "swift":
                 output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
@@ -268,9 +284,15 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             if language == "lua":
                 del output[0]
 
+            if language == "dart" and mode == "fast":
+                output = output[2:]
+
             if DOCKER:
                 if language == "typescript":
                     del output[0]; del output[0]
+
+
+
 
 
             total_time = float(output[2])
@@ -566,7 +588,6 @@ def menu(nogui: bool) -> None:
             print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.MAGENTA + '(P)Rocess' + Fore.RESET}    {Fore.LIGHTYELLOW_EX + '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
             options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
             options_input = options_input.lower()
-            #TODO add options to languages and graphs
             #rounds
             if options_input in ["rounds", "round", "r"]:
                 
