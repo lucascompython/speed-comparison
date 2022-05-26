@@ -257,7 +257,6 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             #output = output.decode("utf-8").split()
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
-            print(language)
 
             #insert the swift version cauz swift is hard on linux
             if language == "swift":
@@ -541,7 +540,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         #save graphs
         #plt.savefig(fname="./results/graphs.png")
-    print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + f" seconds in {Style.BRIGHT}REAL time{Style.RESET_ALL} and in {Style.BRIGHT}CPU time{Style.RESET_ALL} it took: {Fore.GREEN}{round(sum(total_cpu_time), 4)}{Fore.RESET}.")
+    print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + f" seconds in {Style.BRIGHT}REAL time{Style.RESET_ALL} and in {Style.BRIGHT}CPU time{Style.RESET_ALL} it took: {Fore.GREEN}{round(sum(total_cpu_time), 4)}{Fore.RESET} seconds.")
     print(f"\nResults saved in {Fore.YELLOW}./results/*" + Fore.RESET)
 
 #TODO maybe add a while loop for wrong inputs
