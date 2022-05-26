@@ -92,6 +92,8 @@ The speed of the language does not determine its quality.
 You are also more than welcome to contribute and help me.<br>
 See [Known Bugs](#known-bugs-because-im-too-lazy-to-fix-them).
 
+The results shown in [preview](#preview) may vary A LOT because im running this tests on a potato :(
+
 ## Languages used in this comparison
 
 In total there are available 14 languages in this comparison which are:
