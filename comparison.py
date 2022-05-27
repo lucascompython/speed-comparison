@@ -199,6 +199,38 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
         dict[str: float]: Return total time taken by languages.
     """
     DOCKER = os.environ.get("DOCKER", False)
+
+    def special_cases(output: list, language: str, mode: str) -> list:
+        """Helper function that handles languages that print more info than it's needed.
+
+        Args:
+            output (list): The output of the language.
+
+        Returns:
+            list: The filtered output of given language.
+        """
+        
+        #insert the swift version cauz swift is hard on linux
+        if language == "swift":
+            output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
+
+        elif language == "rust" and mode == "fast":
+            output = output[6:]
+        elif language == "lua":
+            del output[0]
+            
+        elif language == "dart" and mode == "fast":
+            output = output[2:]
+
+        elif DOCKER:
+            if language == "typescript":
+                output = output[2:]
+
+        return output
+
+
+
+
     def sync_call(languages: dict[str, str], mode: str) -> None:
         """Helper function to call the languages sequentially.
 
@@ -218,22 +250,7 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
 
 
 
-            #SPECIAL CASES
-            #insert the swift version cauz swift is hard on linux
-            if language == "swift":
-                output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
-
-            if language == "rust" and mode == "fast":
-                output = output[6:]
-            if language == "lua":
-                del output[0]
-                
-            if language == "dart" and mode == "fast":
-                output = output[2:]
-
-            if DOCKER:
-                if language == "typescript":
-                    output = output[2:]
+            output = special_cases(output, language, mode)
 
 
 
@@ -272,26 +289,7 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             language = list(languages.keys())[index]
 
 
-
-            ## SPECIAL CASES
-            #insert the swift version cauz swift is hard on linux
-            if language == "swift":
-                output.insert(0, check_output(["swift", "--version"]).decode("utf-8").split()[2])
-            #remove the cargo confirmation
-            if language == "rust" and mode == "fast":
-                output = output[6:]
-
-            if language == "lua":
-                del output[0]
-
-            if language == "dart" and mode == "fast":
-                output = output[2:]
-
-            if DOCKER:
-                if language == "typescript":
-                    del output[0]; del output[0]
-
-
+            output = special_cases(output, language, mode)
 
 
 
