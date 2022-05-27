@@ -111,7 +111,7 @@ In total there are available 14 languages in this comparison which are:
 - [Rust](https://www.rust-lang.org/) - compiled
 - [Powershell](https://docs.microsoft.com/en-us/powershell/) - interpreted
 - [Swift](https://www.swift.org) - interpreted / compiled
-- [Dart](https://dart.dev) - compiler, JIT
+- [Dart](https://dart.dev) - compiled, JIT
 <!---
 
 - [Javascript](https://www.ecma-international.org/publications/standards/Ecma-402.htm) using [Node.js](https://nodejs.org/) - interpreted, JIT
