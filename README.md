@@ -189,6 +189,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Powershell
 - [X] Add Swift
 - [X] Add Dart
+- [ ] Add the ability to run the comparison multiple times and then show the median, best and worst time.
 - [ ] Add Bash
 - [ ] Add Zig
 - [ ] Add Julia
