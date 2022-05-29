@@ -70,6 +70,7 @@ def cleanup() -> None:
     pass
 
 
+
 def change_round() -> None:
     with open("./src/rounds.txt", "w") as f:
         f.write(str(ROUNDS))
@@ -192,8 +193,13 @@ def name_to_abbr(reverse: bool = True, entry_languages: dict[str, str] | list[st
 
 
 #TODO maybe put the check_call in a subfunction
-def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
+def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]:
     """Function that calls the languages and captures the output(version and execution time) and gets the compile time with the GNU Time command.
+
+    Args:
+        MODE (str): The mode of the program (fast || slow).
+        PROCESS_MODE (str): The process mode (async || sync).
+        TIMES (int): The amount of times to run the comparisons.
 
     Returns:
         dict[str: float]: Return total time taken by languages.
@@ -248,16 +254,37 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
                 output = f.read().decode("utf-8").split()
             #remove the cargo confirmation
 
-
-
             output = special_cases(output, language, mode)
 
+            try:
+                execution_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][1]") 
+                compilation_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][2]")
+                memory_usage = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][4]")
+                total_total_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][-1]")
+            except KeyError:
+                execution_time = []
+                compilation_time = []
+                memory_usage = []
+                total_total_time = []
 
 
+
+
+            execution_time.append(float(output[1]))
+            output[1] = execution_time.copy()
 
             total_time = float(output[2])
-            output[2] = float(output[2]) - float(output[1])
-            output.append(total_time)
+            output[2] = total_time - float(output[1][-1])
+
+            compilation_time.append(output[2])
+            output[2] = compilation_time.copy()
+            
+            total_total_time.append(total_time)
+            output.append(total_total_time.copy())
+
+            memory_usage.append(int(output[4]))
+            output[4] = memory_usage.copy()
+
             #set the results into the corresponding dict
             exec(f"{mode.upper()}_LANGUAGES_RESULTS[language] = output")
 
@@ -288,14 +315,36 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
             if error: print(Fore.RED + error + Fore.RESET); break
             language = list(languages.keys())[index]
 
-
             output = special_cases(output, language, mode)
 
+            try:
+                execution_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][1]") 
+                compilation_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][2]")
+                memory_usage = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][4]")
+                total_total_time = eval(f"{mode.upper()}_LANGUAGES_RESULTS[language][-1]")
+            except KeyError:
+                execution_time = []
+                compilation_time = []
+                memory_usage = []
+                total_total_time = []
 
+            execution_time.append(float(output[1]))
+            output[1] = execution_time.copy()
 
             total_time = float(output[2])
-            output[2] = float(output[2]) - float(output[1])
-            output.append(total_time)
+            output[2] = total_time - float(output[1][-1])
+
+            compilation_time.append(output[2])
+            output[2] = compilation_time.copy()
+            
+            total_total_time.append(total_time)
+            output.append(total_total_time.copy())
+
+            memory_usage.append(int(output[4]))
+            output[4] = memory_usage.copy()
+            #total_time = float(output[2])
+            #output[2] = total_time - float(output[1])
+            #output.append(total_time)
             #set the results into the corresponding dict
             exec(f"{mode.upper()}_LANGUAGES_RESULTS[language] = output")
 
@@ -304,25 +353,27 @@ def call_languages(MODE: str, PROCESS_MODE: str) -> dict[str: float]:
     if MODE in ["slow", "both"]:
         languages = name_to_abbr()
         start = perf_counter()
-        if PROCESS_MODE == "sync":
-            sync_call(languages, "slow")
-        else:
-            async_call(languages, "slow")
+        for _ in range(TIMES):
+            if PROCESS_MODE == "sync":
+                sync_call(languages, "slow")
+            else:
+                async_call(languages, "slow")
 
-        end = perf_counter() - start
-        return_times["slow"] = end
+            end = perf_counter() - start
+            return_times["slow"] = end
 
 
     if MODE in ["fast", "both"]:
         languages = name_to_abbr(entry_languages=FAST_CHANGED_LANGUAGES)
         start = perf_counter()
-        if PROCESS_MODE == "sync":
-            sync_call(languages, "fast")
-        else:
-            async_call(languages, "fast")
+        for _ in range(TIMES):
+            if PROCESS_MODE == "sync":
+                sync_call(languages, "fast")
+            else:
+                async_call(languages, "fast")
 
-        end = perf_counter() - start
-        return_times["fast"] = end
+            end = perf_counter() - start
+            return_times["fast"] = end
 
     return return_times
 
@@ -346,6 +397,8 @@ def arg_parser() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Calculate the prime numbers between any given range.")
     parser.add_argument("-c", "--custom", help="Enter a custom rounds value.", type=int)
     parser.add_argument("-n", "--nogui", help="Use this if you don't want to use graphical graphs.", action="store_true")
+    parser.add_argument("-t", "--times", help="Use this to change the number of times the comparisons will run.", type=int)
+    parser.add_argument("-v", "--verbose", help="Use this flag to see more info about the comparisons results.", action="store_true")
     args = parser.parse_args()
     return args
 
@@ -391,7 +444,7 @@ def save_results(table: PrettyTable) -> None:
 
 
 
-def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float]) -> None:
+def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float], VERBOSITY: bool) -> None:
     """Function that creates the tables and graphs.
 
     Args:
@@ -399,8 +452,10 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         nogui (bool): If the user wants gui or not.
         MODE (str): The mode either slow or fast.
         times (list[float]): The total time.
+        VERBOSITY (bool): If the user wants to see the more verbose output.
     """
     total_cpu_time = []
+    mean = lambda x: sum(x) / len(x) #helper function to get the mean value of a  given list
 
     def graph(languages_array: list, mode: str) -> None:
         """Helper function that creates the graphs.
@@ -418,16 +473,16 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
 
 
-        total_time_language = list(map(lambda x: round(x[:][-1], 4), list(languages_array.values())))
+        total_time_language = list(map(lambda x: round(mean(x[:][-1]), 4), list(languages_array.values())))
         y.append(total_time_language)   
 
-        execution_time_language = list(map(lambda x: round(float(x[:][1]), 4), list(languages_array.values()))) 
+        execution_time_language = list(map(lambda x: round(float(mean(x[:][1])), 4), list(languages_array.values()))) 
         y.append(execution_time_language)   
 
-        compilation_time_language = list(map(lambda x: round(float(x[:][2]), 4), list(languages_array.values())))
+        compilation_time_language = list(map(lambda x: round(float(mean(x[:][2])), 4), list(languages_array.values())))
         y.append(compilation_time_language)   
 
-        memory_language = list(map(lambda x: int(x[:][4]), list(languages_array.values())))
+        memory_language = list(map(lambda x: round(float(mean(x[:][4])), 4), list(languages_array.values())))
         y.append(memory_language)   
         
 
@@ -478,60 +533,102 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         """
         #TODO CENTER TABLE
         #terminal_with = os.get_terminal_size().columns
-        
-        my_table = PrettyTable(
-            [
-                Fore.RED + "Language" + Fore.RESET,
-                Fore.GREEN + "Total time (s)" + Fore.RESET,
-                Fore.BLUE + "Execution time (s)" + Fore.RESET,
-                Fore.CYAN + "Compilation / Interpretation time (s)" + Fore.RESET,
-                Fore.LIGHTGREEN_EX + "Peak Memory usage (kB)" + Fore.RESET,
-                Fore.MAGENTA + "Version" + Fore.RESET,
-            ]
-        )
+        table_title = [
+            Fore.RED + "Language" + Fore.RESET,
+            Fore.GREEN + "Mean Total time (s)" + Fore.RESET,
+            Fore.BLUE + "Mean Execution time (s)" + Fore.RESET,
+            Fore.CYAN + "Mean Compilation time (s)" + Fore.RESET,
+            Fore.LIGHTGREEN_EX + "Mean Peak Memory usage (kB)" + Fore.RESET,
+            Fore.MAGENTA + "Version" + Fore.RESET,
+        ] 
+        if VERBOSITY:
+            table_title.insert(5, Fore.LIGHTBLUE_EX + "Best/Worst Exec. Time (s)" + Fore.RESET)
+            table_title.insert(6, Fore.LIGHTCYAN_EX + "Best/Worst Comp. Time (s)" + Fore.RESET)
+            table_title.insert(7, Fore.GREEN + "Best/Worst Mem. Usage (kB)" + Fore.RESET)
+        my_table = PrettyTable(table_title)
 
 
         total_execution_time = 0
         total_compilation_time = 0
         total_memory_usage = 0
+        total_total_execution_time = 0
+        #for calculating the CPU total time
+        total_total_compilation_time = 0
+        total_total_memory_usage = 0
+        #for verbosity
+        total_worst_execution_time = 0
+        total_worst_compilation_time = 0
+        total_worst_memory_usage = 0
+        total_best_execution_time = 0
+        total_best_compilation_time = 0
+        total_best_memory_usage = 0
 
         for language, output in name_to_abbr(False, results_list, True).items():
             for result in output:
                 if result is output[1]:
-                    total_execution_time += float(result)
+                    total_execution_time += mean(result)
+                    total_total_execution_time += sum(result)
+                    total_best_execution_time += min(result)
+                    total_worst_execution_time += max(result)
                 elif result is output[2]:
-                    total_compilation_time += float(result)
+                    total_compilation_time += mean(result)
+                    total_total_compilation_time += sum(result)
+                    total_best_compilation_time += min(result)
+                    total_worst_compilation_time += max(result)
                 elif result is output[4]:
-                    total_memory_usage += int(result)
-            
-            my_table.add_row([
+                    total_memory_usage += mean(result)
+                    total_total_memory_usage += sum(result)
+                    total_best_memory_usage += min(result)
+                    total_worst_memory_usage += max(result)
+
+            data = [
                 language,
-                round(float(output[-1]), 4),#total time
-                round(float(output[1]), 4), #execution time
-                round(float(output[2]), 4), #compilation time
-                output[4], #memory usage
+                round(mean(output[-1]), 4),#total time
+                round(mean(output[1]), 4), #execution time
+                round(mean(output[2]), 4), #compilation time
+                round(mean(output[4]), 4), #memory usage
                 output[0]  #version
-            ])
+            ]
+
+            if VERBOSITY:
+                data.insert(5, f"{round(min(output[1]), 4)} / {round(max(output[1]), 4)}")
+                data.insert(6, f"{round(min(output[2]), 4)} / {round(max(output[2]), 4)}")
+                data.insert(7, f"{round(min(output[4]), 4)} / {round(max(output[4]), 4)}")
+
+            my_table.add_row(data)
         
         total_total_time = total_execution_time + total_compilation_time
-        total_cpu_time.append(total_total_time)
+        total_total_total_time = total_total_execution_time + total_total_compilation_time
+        total_cpu_time.append(total_total_total_time)
 
-        my_table.add_row([
+        total_row = [
             Fore.RED + f"Total ({len(results_list)})" + Fore.RESET, #total languages
             Fore.GREEN + str(round(total_total_time, 4)) + Fore.RESET, #sum of all total times 
             Fore.BLUE + str(round(total_execution_time, 4)) + Fore.RESET, #sum of all execution times
             Fore.CYAN + str(round(total_compilation_time, 4)) + Fore.RESET, #sum of all compilation times
-            Fore.LIGHTGREEN_EX + str(total_memory_usage) + Fore.RESET, #sum of all peak memory usages
+            Fore.LIGHTGREEN_EX + str(round(total_memory_usage, 4)) + Fore.RESET, #sum of all peak memory usages
             Fore.MAGENTA + "####" + Fore.RESET ####
-        ])
+        ]
+
+        if VERBOSITY:
+            total_row.insert(5, Fore.LIGHTBLUE_EX + f"{str(round(min(output[1]), 4))} / {str(round(max(output[1]), 4))}" + Fore.RESET)
+            total_row.insert(6, Fore.LIGHTCYAN_EX + f"{str(round(min(output[2]), 4))} / {str(round(max(output[2]), 4))}" + Fore.RESET)
+            total_row.insert(7, Fore.GREEN + f"{str(round(min(output[4]), 4))} / {str(round(max(output[4]), 4))}" + Fore.RESET)
+
+        my_table.add_row(total_row)
 
         save_results(my_table)
         #print(my_tablet_csv_string())
         print(my_table)
 
+
+    if VERBOSITY:
+        center_num = 216
+    else:
+        center_num = 128
     if MODE in ["slow", "both"]:
         print("\n")
-        print(f"{Fore.LIGHTGREEN_EX}Slow mode{Fore.RESET}".center(128))
+        print(f"{Fore.LIGHTGREEN_EX}Slow mode{Fore.RESET}".center(center_num))
         table(SLOW_LANGUAGES_RESULTS, times["slow"])
         #graphs
 
@@ -547,7 +644,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         #plt.savefig(fname="./results/graphs.png")
 
     if MODE in ["fast", "both"]:
-        print(f"{Fore.LIGHTGREEN_EX}Fast mode{Fore.RESET}".center(128))
+        print(f"{Fore.LIGHTGREEN_EX}Fast mode{Fore.RESET}".center(center_num))
         table(FAST_LANGUAGES_RESULTS, times["fast"])
 
         graph(FAST_LANGUAGES_RESULTS, "fast")
@@ -564,12 +661,13 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
     print(f"\nResults saved in {Fore.YELLOW}./results/*" + Fore.RESET)
 
 #TODO maybe add a while loop for wrong inputs
-def menu(nogui: bool) -> None:
+def menu(nogui: bool, TIMES: int, VERBOSE: bool) -> None:
     """This function creates the main menu.
 
     Args:
         nogui (bool): If the user wants gui or not.
-
+        TIMES (int): How many times the user wants to run the comparisons.
+        VERBOSE (bool): If the user wants verbose results or not.
     Raises:
         KeyboardInterrupt: Bye bye.
     """
@@ -583,7 +681,7 @@ def menu(nogui: bool) -> None:
             raise KeyboardInterrupt
         elif start in ["options", "config", "settings"]:
             clear()
-            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.MAGENTA + '(P)Rocess' + Fore.RESET}    {Fore.LIGHTYELLOW_EX + '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
+            print(f"{Fore.MAGENTA + 'Choose one of the following options to change' + Fore.RESET}:    {Fore.CYAN + '(R)ounds' + Fore.RESET}    {Fore.LIGHTBLUE_EX + '(L)anguages' + Fore.RESET}    {Fore.MAGENTA + '(P)Rocess' + Fore.RESET}    {Fore.LIGHTBLACK_EX + '(T)imes' + Fore.RESET}    {Fore.LIGHTYELLOW_EX + '(M)ode' + Fore.RESET}    {Fore.LIGHTGREEN_EX + '(G)raphs' + Fore.RESET}    {Fore.LIGHTMAGENTA_EX + '(V)erbose' + Fore.RESET}    {Fore.RED + '(B)ack' + Fore.RESET}")
             options_input = input(f"{Fore.BLUE}options{Fore.RESET}> ")
             options_input = options_input.lower()
             #rounds
@@ -681,6 +779,7 @@ def menu(nogui: bool) -> None:
 
 
             elif options_input in ["graph", "graphs", "g"]:
+                clear()
                 GRAPH_MODE = "GUI" if nogui == False else "Terminal"
                 print("Currently the graph mode is set to: " + Fore.LIGHTMAGENTA_EX + GRAPH_MODE + Fore.RESET)
                 print("Type the graph mode you want to change to (GUI or Terminal)!")
@@ -696,6 +795,36 @@ def menu(nogui: bool) -> None:
                 
 
 
+            elif options_input in ["times", "time", "t"]:
+                clear()
+                print(f"Currently the comparisons will run {Fore.LIGHTBLACK_EX + str(TIMES) + Fore.RESET} times.")
+                print("Type the amount of times you want to run the comparisons!")
+                try:
+                    times_input = int(input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.LIGHTBLACK_EX}times{Fore.RESET}> "))
+                except ValueError:
+                    print(Fore.LIGHTRED_EX + "Invalid times value." + Fore.RESET)
+                if times_input > 0:
+                    TIMES = times_input
+                    print(f"{Fore.GREEN}Times set to {TIMES}!" + Fore.RESET)
+                else:
+                    print(Fore.LIGHTRED_EX + "Invalid times value, the number of times must be greater than 0..." + Fore.RESET)
+
+            elif options_input in ["verbose", "verbosity", "v"]:
+                clear()
+                print(f"Currently the verbosity is set to: {Fore.LIGHTMAGENTA_EX + str(VERBOSE) + Fore.RESET}.")
+                print("Type the verbosity you want to change to (true/false)!")
+                verbose_input = input(f"{Fore.BLUE}options{Fore.RESET}/{Fore.LIGHTMAGENTA_EX}verbosity{Fore.RESET}> ")
+                if verbose_input.lower() in ["true", "t", "1", "yes", "y"]:
+                    VERBOSE = True
+                    print(f"{Fore.GREEN}Verbosity set to {VERBOSE}." + Fore.RESET)
+                elif verbose_input.lower() in ["false", "f", "0", "no", "n"]:
+                    VERBOSE = False
+                    print(f"{Fore.GREEN}Verbosity set to {VERBOSE}." + Fore.RESET)
+                else:
+                    print(f"{Fore.LIGHTRED_EX}Invalid verbosity." + Fore.RESET)
+
+
+
         elif start in ["info", "information", "details"]:
             print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}\nIf your having difficulties check Known Bugs in README.md.")
 
@@ -709,15 +838,15 @@ def menu(nogui: bool) -> None:
         #if none of the above
         clear()
     change_round()
-    print(f"This comparison will run up to {Fore.RED + str(ROUNDS) + Fore.RESET} iterations in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
+    print(f"This comparison will run {Style.BRIGHT + str(TIMES) + Style.RESET_ALL} times, up to {Fore.RED + str(ROUNDS) + Fore.RESET} iterations in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
 
 
     #start actual benchmark
     start_benchmark = perf_counter()
-    times = call_languages(MODE, PROCESS_MODE)
+    times = call_languages(MODE, PROCESS_MODE, TIMES)
     total_benchmark = perf_counter() - start_benchmark
     print(Fore.LIGHTGREEN_EX + "Done!                                                                        " + Fore.RESET)
-    table_and_graph(total_benchmark, nogui, MODE, times)
+    table_and_graph(total_benchmark, nogui, MODE, times, VERBOSE)
 
 
 
@@ -734,8 +863,16 @@ def main() -> None:
         nogui = True 
     else:
         nogui = False
-
-    menu(nogui)
+    if args.times: 
+        TIMES = args.times
+    else:
+        TIMES = 3
+    if args.verbose:
+        VERBOSE = True
+    else:
+        VERBOSE = False
+    
+    menu(nogui, TIMES, VERBOSE)
 
 
 
