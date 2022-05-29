@@ -15,7 +15,7 @@ All languages use the same algorithms.
 <div align="center">
 
 ![plot](https://cdn.discordapp.com/attachments/795277227423301643/978406323182002236/Results.png "Speed comparison of programming languages")
-![table](https://cdn.discordapp.com/attachments/795277227423301643/979514683348377690/unknown.png "Table") 
+![table](https://cdn.discordapp.com/attachments/795277227423301643/980564894959149126/unknown.png "Table") 
 
 ![lines](https://img.shields.io/tokei/lines/github/lucascompython/speed-comparison)
 <p>
@@ -189,7 +189,7 @@ Because I think this is a more realistic scenario to compare speeds.
 - [X] Add Powershell
 - [X] Add Swift
 - [X] Add Dart
-- [ ] Add the ability to run the comparison multiple times and then show the median, best and worst time.
+- [X] Add the ability to run the comparison multiple times and then show the mean, best and worst time.
 - [ ] Add Bash
 - [ ] Add Zig
 - [ ] Add Julia
