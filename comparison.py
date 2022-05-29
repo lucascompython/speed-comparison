@@ -611,9 +611,9 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
         ]
 
         if VERBOSITY:
-            total_row.insert(5, Fore.LIGHTBLUE_EX + f"{str(round(min(output[1]), 4))} / {str(round(max(output[1]), 4))}" + Fore.RESET)
-            total_row.insert(6, Fore.LIGHTCYAN_EX + f"{str(round(min(output[2]), 4))} / {str(round(max(output[2]), 4))}" + Fore.RESET)
-            total_row.insert(7, Fore.GREEN + f"{str(round(min(output[4]), 4))} / {str(round(max(output[4]), 4))}" + Fore.RESET)
+            total_row.insert(5, Fore.LIGHTBLUE_EX + f"{str(round(total_best_execution_time, 4))} / {str(round(total_worst_execution_time, 4))}" + Fore.RESET)
+            total_row.insert(6, Fore.LIGHTCYAN_EX + f"{str(round(total_best_compilation_time, 4))} / {str(round(total_worst_compilation_time, 4))}" + Fore.RESET)
+            total_row.insert(7, Fore.GREEN + f"{str(round(total_best_memory_usage, 4))} / {str(round(total_worst_memory_usage, 4))}" + Fore.RESET)
 
         my_table.add_row(total_row)
 
