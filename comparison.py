@@ -237,7 +237,7 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
 
 
 
-    def sync_call(languages: dict[str, str], mode: str) -> None:
+    def sync_call(languages: dict[str, str], mode: str, index: int) -> None:
         """Helper function to call the languages sequentially.
 
         Args:
@@ -245,7 +245,7 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
             mode (str): The mode either slow or fast.
         """
         for language, command in languages.items():
-            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
+            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL} in {Style.BRIGHT + mode.capitalize()} mode ({index}){Style.RESET_ALL}.        ", end="\r")
             path = os.path.join("./src/", language, mode)
             with NamedTemporaryFile() as f:
                 ##TODO remove shell=True and the extra sh
@@ -290,7 +290,7 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
 
 
 
-    def async_call(languages: dict[str, str], mode: str) -> None:
+    def async_call(languages: dict[str, str], mode: str, index: int) -> None:
         """Helper function that calls the languages in parallel.
 
         Args:
@@ -299,7 +299,7 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
         """
         processes = []
         for language, command in languages.items():
-            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL}.        ", end="\r")
+            print(f"\rCurrently on -> {Style.BRIGHT + Fore.RED}{language.capitalize()}{Style.RESET_ALL} in {Style.BRIGHT + mode.capitalize()} mode ({index}){Style.RESET_ALL}.        ", end="\r")
             path = os.path.join("./src/", language, mode)
             #named open temp file
             f = NamedTemporaryFile()
@@ -353,11 +353,11 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
     if MODE in ["slow", "both"]:
         languages = name_to_abbr()
         start = perf_counter()
-        for _ in range(TIMES):
+        for index in range(TIMES):
             if PROCESS_MODE == "sync":
-                sync_call(languages, "slow")
+                sync_call(languages, "slow", index)
             else:
-                async_call(languages, "slow")
+                async_call(languages, "slow", index)
 
             end = perf_counter() - start
             return_times["slow"] = end
@@ -366,11 +366,11 @@ def call_languages(MODE: str, PROCESS_MODE: str, TIMES: int) -> dict[str: float]
     if MODE in ["fast", "both"]:
         languages = name_to_abbr(entry_languages=FAST_CHANGED_LANGUAGES)
         start = perf_counter()
-        for _ in range(TIMES):
+        for index in range(TIMES):
             if PROCESS_MODE == "sync":
-                sync_call(languages, "fast")
+                sync_call(languages, "fast", index)
             else:
-                async_call(languages, "fast")
+                async_call(languages, "fast", index)
 
             end = perf_counter() - start
             return_times["fast"] = end
@@ -634,7 +634,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         graph(SLOW_LANGUAGES_RESULTS, "slow")
         if not nogui:
-            plt.suptitle("Graphs")
+            plt.suptitle("Results")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
         else:
@@ -649,7 +649,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         graph(FAST_LANGUAGES_RESULTS, "fast")
         if not nogui:
-            plt.suptitle("Graphs")
+            plt.suptitle("Results")
             plt.get_current_fig_manager().set_window_title("Results")
             plt.show()
         else:
@@ -657,7 +657,7 @@ def table_and_graph(total_time: float, nogui: bool, MODE: str, times: list[float
 
         #save graphs
         #plt.savefig(fname="./results/graphs.png")
-    print("\nIn total this all comparison took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + f" seconds in {Style.BRIGHT}REAL time{Style.RESET_ALL} and in {Style.BRIGHT}CPU time{Style.RESET_ALL} it took: {Fore.GREEN}{round(sum(total_cpu_time), 4)}{Fore.RESET} seconds.")
+    print("\nIn total all comparisons took: " + Fore.GREEN + str(round(total_time, 3)) + Fore.RESET + f" seconds in {Style.BRIGHT}REAL time{Style.RESET_ALL} and in {Style.BRIGHT}CPU time{Style.RESET_ALL} it took: {Fore.GREEN}{round(sum(total_cpu_time), 4)}{Fore.RESET} seconds.")
     print(f"\nResults saved in {Fore.YELLOW}./results/*" + Fore.RESET)
 
 #TODO maybe add a while loop for wrong inputs
@@ -826,7 +826,7 @@ def menu(nogui: bool, TIMES: int, VERBOSE: bool) -> None:
 
 
         elif start in ["info", "information", "details"]:
-            print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}\nIf your having difficulties check Known Bugs in README.md.")
+            print(f"The comparison will run in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations {Style.DIM + str(TIMES) + Style.RESET_ALL} times and the following {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES)) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES)) + Fore.RESET}\nIf your having difficulties check Known Bugs in README.md.")
 
 
 
@@ -838,7 +838,7 @@ def menu(nogui: bool, TIMES: int, VERBOSE: bool) -> None:
         #if none of the above
         clear()
     change_round()
-    print(f"This comparison will run {Style.BRIGHT + str(TIMES) + Style.RESET_ALL} times, up to {Fore.RED + str(ROUNDS) + Fore.RESET} iterations in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
+    print(f"This comparison will run {Style.BRIGHT + str(TIMES) + Style.RESET_ALL} times, with {Fore.RED + str(ROUNDS) + Fore.RESET} iterations in {Style.BRIGHT + PROCESS_MODE.capitalize() + Style.RESET_ALL} mode and it is using {Style.BRIGHT + str(len(SLOW_CHANGED_LANGUAGES.keys())) + Style.RESET_ALL} languages: {Fore.MAGENTA + ', '.join(map(str, SLOW_CHANGED_LANGUAGES.keys())) + Fore.RESET}")
 
 
     #start actual benchmark
