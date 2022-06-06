@@ -804,6 +804,8 @@ def menu(nogui: bool, TIMES: int, VERBOSE: bool) -> None:
                 except ValueError:
                     print(Fore.LIGHTRED_EX + "Invalid times value." + Fore.RESET)
                 if times_input > 0:
+                    if times_input > 3:
+                        print(Fore.YELLOW + "WARNING: The amount of times are set to a high value, this may take a while!" + Fore.RESET)
                     TIMES = times_input
                     print(f"{Fore.GREEN}Times set to {TIMES}!" + Fore.RESET)
                 else:
