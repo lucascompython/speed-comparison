@@ -38,7 +38,7 @@ All languages use the same algorithms.
     <img src="https://img.shields.io/github/license/lucascompython/speed-comparison.svg" alt="license" />
   </a>
 </p>
-
+<p>[See more](All%20Results%20Preview.md)</p>
 </div>
 
 ---
